@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.Layouts;
 using UnityEngine.InputSystem.OnScreen;
@@ -25,6 +26,12 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     protected OnScreenStick handleStickController = null;
     protected CanvasGroup bgCanvasGroup = null;
     protected Vector2 initialPosition = Vector2.zero;
+
+    public bool isMoving = false;
+    public Vector3 dir = new Vector3();
+    public UnityEvent onDown;
+    public UnityEvent onDrag;
+    public UnityEvent onUp;
 
     protected virtual void Awake()
     {
@@ -64,11 +71,13 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
         if (joystickType == VirtualJoystickType.Floating)
         {
+            if (eventData.position.Equals(new Vector2(0, 0))) return;
             centerArea.anchoredPosition = GetAnchoredPosition(eventData.position);
-
             if (_hideOnPointerUp)
                 bgCanvasGroup.alpha = 1;
         }
+        isMoving = true;
+        onDown.Invoke();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -77,6 +86,14 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         {
             handleStickController.OnDrag(eventData);
         }
+        if (isMoving)
+        {
+            Vector2 screenDir = (handle.position - centerArea.position) / movementRange;
+            dir.x = screenDir.x;
+            dir.y = 0;
+            dir.z = screenDir.y;
+        }
+        onDrag.Invoke();
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -94,6 +111,8 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         constructedEventData.position = Vector2.zero;
 
         handleStickController.OnPointerUp(constructedEventData);
+        isMoving = false;
+        onUp.Invoke();
     }
 
     protected Vector2 GetAnchoredPosition(Vector2 screenPosition)
