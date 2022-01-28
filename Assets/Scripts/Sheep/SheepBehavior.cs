@@ -22,6 +22,7 @@ public class SheepBehavior : MonoBehaviour
     private bool isPlayerClose;
 
     private NavMeshAgent navMeshAgent;
+    private PlayerController playerController;
 
     //private EmojiChange emojiChange;
     private int state;
@@ -41,7 +42,8 @@ public class SheepBehavior : MonoBehaviour
         state = 0;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.enabled = false;
-        
+        playerController = FindObjectOfType<PlayerController>();
+
         //emojiChange = GetComponentInChildren<EmojiChange>();
         //worldManager = FindObjectOfType<WorldManager>();
     }
@@ -55,20 +57,32 @@ public class SheepBehavior : MonoBehaviour
     void Update()
     {
         UpdateState(state);
-        
-        if (!transform.position.Equals(nextPosition))
+
+        if (!isPlayerClose)
         {
-            navMeshAgent.enabled = true;
-            //float step = speed * Time.deltaTime;
-            //transform.position = Vector3.MoveTowards(transform.position, nextPosition, step);
-            //Quaternion rotTarget = Quaternion.LookRotation(nextPosition - this.transform.position);
-            //this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 50f * Time.deltaTime);
+            if (!transform.position.Equals(nextPosition))
+            {
+                navMeshAgent.enabled = true;
+                //float step = speed * Time.deltaTime;
+                //transform.position = Vector3.MoveTowards(transform.position, nextPosition, step);
+                //Quaternion rotTarget = Quaternion.LookRotation(nextPosition - this.transform.position);
+                //this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 50f * Time.deltaTime);
+            }
+            else
+            {
+                navMeshAgent.enabled = false;
+            }
         }
         else
         {
-            navMeshAgent.enabled = false;
+            navMeshAgent.enabled = true;
+            PlayerCloseMovement();
+            
         }
+        
     }
+
+
 
     void SinNecesidad()
     {
@@ -224,36 +238,43 @@ public class SheepBehavior : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            isPlayerClose = true;
+            StopCoroutine(move);
+            
+            print("Dentro");
+        }
+    }
+
     void OnTriggerStay(Collider collider)
     {
         if(state == 1)
         {
-            if (collider.gameObject.CompareTag("TriggerGanasDeCagar") && ganasDeCagar > 10)
-            {
-                ChangeState(2);
-            }
-            else if(collider.gameObject.CompareTag("TriggerSed") && sed > 10)
-            {
-                ChangeState(2);
-            }
-            else if(collider.gameObject.CompareTag("TriggerChill") && chill > 10)
-            {
-                ChangeState(2);
-            }
-            else if(collider.gameObject.CompareTag("TriggerComida") && comida > 10)
-            {
-                ChangeState(2);
-            }
-            else if(collider.gameObject.CompareTag("TriggerLimpieza") && limpieza > 10)
-            {
-                ChangeState(2);
-            }
+            //if (collider.gameObject.CompareTag("TriggerGanasDeCagar") && ganasDeCagar > 10)
+            //{
+            //    ChangeState(2);
+            //}
+            //else if(collider.gameObject.CompareTag("TriggerSed") && sed > 10)
+            //{
+            //    ChangeState(2);
+            //}
+            //else if(collider.gameObject.CompareTag("TriggerChill") && chill > 10)
+            //{
+            //    ChangeState(2);
+            //}
+            //else if(collider.gameObject.CompareTag("TriggerComida") && comida > 10)
+            //{
+            //    ChangeState(2);
+            //}
+            //else if(collider.gameObject.CompareTag("TriggerLimpieza") && limpieza > 10)
+            //{
+            //    ChangeState(2);
+            //}
         }
-        if(collider.gameObject.CompareTag("Player"))
-        {
-            isPlayerClose = true;
-            StopCoroutine(move);
-        }
+        
     }
 
     void OnTriggerExit(Collider collider)
@@ -287,7 +308,31 @@ public class SheepBehavior : MonoBehaviour
         if(collider.gameObject.CompareTag("Player"))
         {
             isPlayerClose = false;
+            print("Fuera");
         }
+    }
+    
+    private void PlayerCloseMovement()
+    {
+        Vector3 dir = transform.position + (playerController.transform.position - transform.position).normalized * 3;
+
+        Vector3 origin = new Vector3(dir.x, transform.position.y + 20, dir.z);
+        
+        
+        
+        RaycastHit hit;
+
+        if (Physics.Raycast(origin, Vector3.down, out hit, Mathf.Infinity))
+        {
+            if (hit.collider.gameObject.CompareTag("Ground"))
+            {
+                print(origin);
+                navMeshAgent.destination = hit.point;
+                nextPosition = hit.point;
+                print(nextPosition);
+            }
+        }
+        
     }
 
 }
