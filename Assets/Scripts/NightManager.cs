@@ -5,38 +5,39 @@ using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
-public class DayManager : MonoBehaviour
+public class NightManager : MonoBehaviour
 {
-    [SerializeField] private float dayTime;
+    [SerializeField] private float nightTime;
     [SerializeField] private Slider progressbar;
     [SerializeField] private Image backgroundColor;
 
     private float progressTime;
 
-    public bool isDay;
+    public bool isNight;
     // Start is called before the first frame update
     void Start()
     {
-        isDay = true;
-        progressbar.maxValue = dayTime;
+        isNight = false;
+        progressbar.maxValue = nightTime;
     }
 
     // Update is called once per frame
+    // Update is called once per frame
     void Update()
     {
-        if (isDay)
+        if (isNight)
         {
             progressbar.gameObject.SetActive(true);
-            if (progressTime < dayTime)
+            if (progressTime < nightTime)
             {
                 progressTime += Time.deltaTime;
                 progressbar.value = progressTime;
-                Color color = new Color(1 - Normalizar(progressTime), 0.5f - Normalizar(progressTime), Normalizar(progressTime), 0.65f);
+                Color color = new Color(Normalizar(progressTime), 0.5f - Normalizar(progressTime), 1 - Normalizar(progressTime), 0.65f);
                 backgroundColor.color = color;
             }
             else
             {
-                isDay = false;
+                isNight = false;
                 progressTime = 0;
                 progressbar.gameObject.SetActive(false);
             }
@@ -45,6 +46,6 @@ public class DayManager : MonoBehaviour
 
     private float Normalizar(float num)
     {
-        return (num / dayTime);
+        return (num / nightTime);
     }
 }
