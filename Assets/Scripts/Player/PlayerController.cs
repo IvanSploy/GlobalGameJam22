@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using static UnityEngine.InputSystem.InputAction;
 
@@ -60,6 +61,8 @@ public class PlayerController : MonoBehaviour
         dir.x = screenDir.x;
         dir.z = screenDir.y;
         rigidbody.velocity = (dir * speed);
+        
+        transform.rotation = Quaternion.LookRotation(dir);
     }
     public void OnInteractKeyboard()
     {
@@ -70,6 +73,7 @@ public class PlayerController : MonoBehaviour
     public void OnMoveJoystick()
     {
         rigidbody.velocity = (joystick.dir * speed);
+        transform.rotation = Quaternion.LookRotation(joystick.dir);
     }
     public void OnStop()
     {

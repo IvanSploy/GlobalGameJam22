@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 197688810642708303}
   - component: {fileID: 197688810642708338}
   m_Layer: 0
-  m_Name: Sheep
+  m_Name: SheepMinigame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
