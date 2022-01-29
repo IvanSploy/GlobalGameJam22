@@ -29,6 +29,7 @@ public class SheepBehavior : MonoBehaviour
     private Vector3 nextPosition;
     private Coroutine countdownSheep;
     private Coroutine move;
+    public Coroutine recover;
     private bool locked;
     [SerializeField] private float count;
     [SerializeField] private float setCount;
@@ -357,7 +358,7 @@ public class SheepBehavior : MonoBehaviour
     {
         rb.isKinematic = false;
 
-        StartCoroutine(Recover());
+        recover = StartCoroutine(Recover());
     }
 
     private void ChangeEmoji(int numberOfEmoji)
@@ -373,10 +374,12 @@ public class SheepBehavior : MonoBehaviour
             rb.isKinematic = true;
         });
         yield return new WaitForSeconds(2);
-
+        
         picked = false;
         navMeshAgent.enabled = true;
         locked = false;
         nextPosition = transform.position;
+
+        recover = null;
     }
 }
