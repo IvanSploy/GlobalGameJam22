@@ -9,6 +9,7 @@ public class PickUpSheep : MonoBehaviour
 {
     [SerializeField] private SheepBehavior sheepToTake;
     [SerializeField] private Transform pickUpPosition;
+    [SerializeField] private Animator anim;
 
     private int sheepsIn = 0;
 
@@ -79,6 +80,7 @@ public class PickUpSheep : MonoBehaviour
         sheepToTake.transform.DOLocalMove(Vector3.zero, 0.3f);
         isPicking = true;
         count--;
+        anim.SetBool("Picking", true);
     }
 
     void Throw() {
@@ -89,6 +91,7 @@ public class PickUpSheep : MonoBehaviour
 
         sheepToTake.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce.x +  transform.up * throwForce.y);
         isPicking = false;
+        anim.SetBool("Picking", false);
     }
     
     private void OnEnable()

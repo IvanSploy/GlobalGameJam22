@@ -121,7 +121,6 @@ public class SheepBehavior : MonoBehaviour
         if(isPlayerClose) return;
         if (Vector3.Distance(nextPosition, transform.position) <= 1f && locked == false) {
             move = StartCoroutine(randomMovement());
-            print("Illomemmuevo");
         }
             
     }
@@ -348,6 +347,7 @@ public class SheepBehavior : MonoBehaviour
     public void Picked()
     {
         navMeshAgent.enabled = false;
+        transform.DORotate(Vector3.forward * 180, 0.3f);
         rb.isKinematic = true;
         picked = true;
         isPlayerClose = false;

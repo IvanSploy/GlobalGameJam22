@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigidbody;
     private VirtualJoystick joystick;
     [SerializeField] private PickUpSheep pickUpSheep;
+    [SerializeField] private Animator anim;
 
     //Atributos
     public float speed = 5;
@@ -39,11 +40,13 @@ public class PlayerController : MonoBehaviour
         if (joystick.isMoving)
         {
             OnMoveJoystick();
+            anim.SetBool("Moving", true);
         }
 
         if (isMoving)
         {
             OnMoveKeyboard();
+            anim.SetBool("Moving", true);
         }
     }
 
@@ -89,6 +92,7 @@ public class PlayerController : MonoBehaviour
         noVel.x = 0;
         noVel.z = 0;
         rigidbody.velocity = noVel;
+        anim.SetBool("Moving", false);
     }
 
     private void OnEnable()
