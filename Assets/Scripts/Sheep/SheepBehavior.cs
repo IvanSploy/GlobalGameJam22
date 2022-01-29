@@ -260,26 +260,26 @@ public class SheepBehavior : MonoBehaviour
     {
         if(state == 1)
         {
-            //if (collider.gameObject.CompareTag("TriggerGanasDeCagar") && ganasDeCagar >= 10)
-            //{
-            //    ChangeState(2);
-            //}
-            //else if(collider.gameObject.CompareTag("TriggerSed") && sed >= 10)
-            //{
-            //    ChangeState(2);
-            //}
-            //else if(collider.gameObject.CompareTag("TriggerChill") && chill >= 10)
-            //{
-            //    ChangeState(2);
-            //}
-            //else if(collider.gameObject.CompareTag("TriggerComida") && comida >= 10)
-            //{
-            //    ChangeState(2);
-            //}
-            //else if(collider.gameObject.CompareTag("TriggerLimpieza") && limpieza >= 10)
-            //{
-            //    ChangeState(2);
-            //}
+            if (collider.gameObject.CompareTag("TriggerGanasDeCagar") && ganasDeCagar >= 10)
+            {
+                ChangeState(2);
+            }
+            else if(collider.gameObject.CompareTag("TriggerSed") && sed >= 10)
+            {
+                ChangeState(2);
+            }
+            else if(collider.gameObject.CompareTag("TriggerChill") && chill >= 10)
+            {
+                ChangeState(2);
+            }
+            else if(collider.gameObject.CompareTag("TriggerComida") && comida >= 10)
+            {
+                ChangeState(2);
+            }
+            else if(collider.gameObject.CompareTag("TriggerLimpieza") && limpieza >= 10)
+            {
+                ChangeState(2);
+            }
         }
         
     }
