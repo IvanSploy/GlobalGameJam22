@@ -31,7 +31,7 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public Vector3 dir = new Vector3();
     public UnityEvent onDown;
     public UnityEvent onDrag;
-    public UnityEvent onUp;
+    public UnityEvent OnUp;
 
     protected virtual void Awake()
     {
@@ -112,7 +112,7 @@ public class VirtualJoystick : MonoBehaviour, IPointerDownHandler, IPointerUpHan
 
         handleStickController.OnPointerUp(constructedEventData);
         isMoving = false;
-        onUp.Invoke();
+        OnUp.Invoke();
     }
 
     protected Vector2 GetAnchoredPosition(Vector2 screenPosition)

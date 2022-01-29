@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Events;
 
 public class VirtualButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
@@ -10,6 +11,9 @@ public class VirtualButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     [SerializeField] private float rotationSpeed = 15;
 
     private bool rotate = false;
+
+    public UnityEvent OnClick;
+    public UnityEvent OnRelease;
 
     void FixedUpdate()
     {
@@ -25,10 +29,12 @@ public class VirtualButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandl
     public void OnPointerDown(PointerEventData pointerEventData)
     {
         rotate = true;
+        OnClick.Invoke();
     }
 
     public void OnPointerUp(PointerEventData pointerEventData)
     {
         rotate = false;
+        OnRelease.Invoke();
     }
 }

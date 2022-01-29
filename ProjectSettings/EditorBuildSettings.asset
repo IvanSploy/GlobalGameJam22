@@ -8,4 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Transitioner.unity
+    guid: e7238d05b353e5b42bedeecbcee8398c
+  - enabled: 1
+    path: Assets/Scenes/GameplayScene.unity
+    guid: e5a5b6813bb0dd24eaf8ab3ef3a71aab
+  - enabled: 1
+    path: Assets/Scenes/MiniGame.unity
+    guid: 532ff097c0194714f8c35036e0e923f9
   m_configObjects: {}

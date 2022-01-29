@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     private InputController input;
     private Rigidbody rigidbody;
     private VirtualJoystick joystick;
+    private VirtualButton interact;
 
     //Atributos
     public float speed = 5;
@@ -24,11 +25,16 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
+        //Móvil
         joystick = FindObjectOfType<VirtualJoystick>();
-        joystick.onUp.AddListener(OnStop);
+        joystick.OnUp.AddListener(OnStop);
+        interact = FindObjectOfType<VirtualButton>();
+        interact.OnClick.AddListener(OnInteract);
+
+        //Keyboard
         input.Player.Movement.performed += (ctx) => OnStartMove();
         input.Player.Movement.canceled += (ctx) => OnStopMove();
-        input.Player.Interact.performed += (ctx) => OnInteractKeyboard();
+        input.Player.Interact.performed += (ctx) => OnInteract();
     }
 
     private void Update()
@@ -64,9 +70,9 @@ public class PlayerController : MonoBehaviour
         
         transform.rotation = Quaternion.LookRotation(dir);
     }
-    public void OnInteractKeyboard()
+    public void OnInteract()
     {
-
+        Debug.Log("He interaccionao");
     }
     
     //Móvil
