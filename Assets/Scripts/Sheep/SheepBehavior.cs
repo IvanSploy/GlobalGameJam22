@@ -40,6 +40,7 @@ public class SheepBehavior : MonoBehaviour
     private Rigidbody rb;
 
     private bool picked;
+    private bool thrown;
 
     [SerializeField] private float fleeSpeed;
     [SerializeField] private float chillSpeed;
@@ -65,6 +66,7 @@ public class SheepBehavior : MonoBehaviour
         UpdateState(state);
 
         if (picked) return;
+        if (thrown) return;
         
         if (!isPlayerClose)
         {
@@ -252,6 +254,7 @@ public class SheepBehavior : MonoBehaviour
             StopCoroutine(move);
             navMeshAgent.speed = chillSpeed;
         }
+        
     }
 
     void OnTriggerStay(Collider collider)
@@ -348,9 +351,10 @@ public class SheepBehavior : MonoBehaviour
 
     public void Released()
     {
-        navMeshAgent.enabled = true;
+        //navMeshAgent.enabled = true;
         rb.isKinematic = false;
         picked = false;
+        thrown = true;
     }
 
 }
