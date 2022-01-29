@@ -21,23 +21,15 @@ public class PickUpSheep : MonoBehaviour
 
     [SerializeField] private Vector3 throwForce;
     private PlayerController playerController;
-    
+    private VirtualButton interact;
+
     private void Awake()
     {
         input = new InputController();
+        interact = FindObjectOfType<VirtualButton>();
+        interact.OnClick.AddListener(Interact);
         input.Player.Interact.started += (ctx) => Interact();
         playerController = FindObjectOfType<PlayerController>();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
     }
 
     private void OnTriggerEnter(Collider other) {

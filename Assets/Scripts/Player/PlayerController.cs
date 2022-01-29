@@ -10,9 +10,6 @@ public class PlayerController : MonoBehaviour
     private InputController input;
     private Rigidbody rigidbody;
     private VirtualJoystick joystick;
-    private VirtualButton interact;
-	
-    [SerializeField] private PickUpSheep pickUpSheep;
     [SerializeField] private Animator anim;
 
     //Atributos
@@ -33,13 +30,10 @@ public class PlayerController : MonoBehaviour
         //Móvil
         joystick = FindObjectOfType<VirtualJoystick>();
         joystick.OnUp.AddListener(OnStop);
-        interact = FindObjectOfType<VirtualButton>();
-        interact.OnClick.AddListener(OnInteract);
 
         //Keyboard
         input.Player.Movement.performed += (ctx) => OnStartMove();
         input.Player.Movement.canceled += (ctx) => OnStopMove();
-        input.Player.Interact.performed += (ctx) => OnInteract();
     }
 
     private void Update()
@@ -78,10 +72,6 @@ public class PlayerController : MonoBehaviour
         var rot = Quaternion.LookRotation(dir * speed);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
         movementValue = Mathf.Abs(dir.magnitude);
-    }
-    public void OnInteract()
-    {
-        Debug.Log("He interaccionao");
     }
     
     //Móvil
