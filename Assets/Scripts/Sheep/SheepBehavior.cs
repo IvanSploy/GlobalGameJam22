@@ -42,7 +42,7 @@ public class SheepBehavior : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private Sprite [] sprite;
     [SerializeField] private Image emoji;
-
+    private Target target;
 
 
     [SerializeField] private Animator anim;
@@ -55,6 +55,7 @@ public class SheepBehavior : MonoBehaviour
         navMeshAgent.speed = chillSpeed;
         progressbar = GetComponentInChildren<Slider>();
         canvas = GetComponentInChildren<Canvas>();
+        target = GetComponent<Target>();
     }
 
     private void Start()
@@ -98,6 +99,7 @@ public class SheepBehavior : MonoBehaviour
     {
         if (!sinNecesidad)
         {
+            target.enabled = false;
             canvas.enabled = false;
             count = setCount;
             UpdateRandomTime();
@@ -115,6 +117,7 @@ public class SheepBehavior : MonoBehaviour
     {
         if(!conNecesidad)
         {
+            target.enabled = true;
             canvas.enabled = true;
             Color newColor = new Color(1, 0, 0.4f, 1);
             backgroundColor.color = newColor;
@@ -133,6 +136,7 @@ public class SheepBehavior : MonoBehaviour
     {
         if(!saciandoNecesidad)
         {
+            target.enabled = false;
             canvas.enabled = true;
             Color newColor = new Color(0.5f, 1f, 0.2f, 1);
             backgroundColor.color = newColor;
