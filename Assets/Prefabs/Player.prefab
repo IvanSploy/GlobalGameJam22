@@ -233,7 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3843a79a02dfe1b418421c082ae14f82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pickUpSheep: {fileID: 1830367616604698251}
   anim: {fileID: 1830367615528002654}
   speed: 5
   isMoving: 0
