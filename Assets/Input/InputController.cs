@@ -176,6 +176,17 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""4afa17c9-2041-405c-96f7-8f24c53e1c75"",
+                    ""path"": ""*/{PrimaryAction}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""65e4dbe8-e1c9-4381-b3d8-d1b9487dfdcc"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",

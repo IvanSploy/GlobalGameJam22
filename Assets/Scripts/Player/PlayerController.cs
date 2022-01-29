@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour
 
     }
     
-    //Móvil
+    //MÃ³vil
     public void OnMoveJoystick()
     {
         rigidbody.velocity = (joystick.dir * speed);

@@ -36,13 +36,17 @@ public class SheepBehavior : MonoBehaviour
     private Coroutine move;
     private bool locked;
     [SerializeField] private float count;
-    [SerializeField] private float setCount = 10;
+    [SerializeField] private float setCount;
+    private Rigidbody rb;
+
+    private bool picked;
     private void Awake()
     {        
         state = 0;
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.enabled = false;
         playerController = FindObjectOfType<PlayerController>();
+        rb = GetComponent<Rigidbody>();
 
         //emojiChange = GetComponentInChildren<EmojiChange>();
         //worldManager = FindObjectOfType<WorldManager>();
@@ -58,6 +62,8 @@ public class SheepBehavior : MonoBehaviour
     {
         UpdateState(state);
 
+        if (picked) return;
+        
         if (!isPlayerClose)
         {
             if (!transform.position.Equals(nextPosition))
@@ -101,7 +107,6 @@ public class SheepBehavior : MonoBehaviour
         
         if (Vector3.Distance(nextPosition,transform.position) <= 1f && locked == false)
         {
-            print("Fium");
             move = StartCoroutine(randomMovement());
         }
             
@@ -193,7 +198,6 @@ public class SheepBehavior : MonoBehaviour
                     navMeshAgent.destination = hit.point;
                     nextPosition = hit.point;
                     locked = false;
-                    print(nextPosition);
                 }
             }
         }
@@ -244,8 +248,7 @@ public class SheepBehavior : MonoBehaviour
         {
             isPlayerClose = true;
             StopCoroutine(move);
-            
-            print("Dentro");
+            navMeshAgent.speed = 1;
         }
     }
 
@@ -308,13 +311,14 @@ public class SheepBehavior : MonoBehaviour
         if(collider.gameObject.CompareTag("Player"))
         {
             isPlayerClose = false;
-            print("Fuera");
+            locked = false;
+            navMeshAgent.speed = 4;
         }
     }
     
     private void PlayerCloseMovement()
     {
-        Vector3 dir = transform.position + (playerController.transform.position - transform.position).normalized * 3;
+        Vector3 dir = transform.position + (playerController.transform.position - transform.position).normalized * -3;
 
         Vector3 origin = new Vector3(dir.x, transform.position.y + 20, dir.z);
         
@@ -326,13 +330,25 @@ public class SheepBehavior : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Ground"))
             {
-                print(origin);
                 navMeshAgent.destination = hit.point;
                 nextPosition = hit.point;
-                print(nextPosition);
             }
         }
         
+    }
+
+    public void Picked()
+    {
+        navMeshAgent.enabled = false;
+        rb.isKinematic = true;
+        picked = true;
+    }
+
+    public void Released()
+    {
+        navMeshAgent.enabled = true;
+        rb.isKinematic = false;
+        picked = false;
     }
 
 }
