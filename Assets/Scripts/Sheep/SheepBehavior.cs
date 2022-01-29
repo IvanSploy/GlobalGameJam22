@@ -395,4 +395,8 @@ public class SheepBehavior : MonoBehaviour
 
         recover = null;
     }
+
+    public void StopRecover() {
+        StopCoroutine(recover);
+    }
 }

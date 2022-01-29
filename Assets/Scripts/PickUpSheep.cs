@@ -75,7 +75,7 @@ public class PickUpSheep : MonoBehaviour
         if (!sheepToTake || isPicking || count <= 0) return;
 
         if (sheepToTake.recover != null) {
-            StopCoroutine(sheepToTake.recover);
+            sheepToTake.StopRecover();
         }
         sheepToTake.Picked();
         sheepToTake.transform.SetParent(pickUpPosition);
