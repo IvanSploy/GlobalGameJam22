@@ -12,18 +12,17 @@ public class WolfIA : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SearchSheeps();
+        sheepBehaviors = FindObjectsOfType<SheepBehavior>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        SearchSheeps();
     }
 
     private void SearchSheeps()
     {
-        sheepBehaviors = FindObjectsOfType<SheepBehavior>();
         if (sheepBehaviors == null)
         {
             //SE ACABA EL JUEGO NO HAY MAS BICHOS
@@ -55,6 +54,7 @@ public class WolfIA : MonoBehaviour
     {
         yield return new WaitForSeconds(2);
         Destroy(sheep);
+        sheepBehaviors = FindObjectsOfType<SheepBehavior>();
         SearchSheeps();
     }
 }
