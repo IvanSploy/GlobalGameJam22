@@ -10,11 +10,14 @@ public class PlayerController : MonoBehaviour
     private InputController input;
     private Rigidbody rigidbody;
     private VirtualJoystick joystick;
+    [SerializeField] private PickUpSheep pickUpSheep;
 
     //Atributos
     public float speed = 5;
     public bool isMoving = false;
     public Vector3 dir;
+
+    public float movementValue;
 
     private void Awake()
     {
@@ -60,9 +63,11 @@ public class PlayerController : MonoBehaviour
         dir = Vector3.zero;
         dir.x = screenDir.x;
         dir.z = screenDir.y;
-        rigidbody.velocity = (dir * speed);
+        rigidbody.velocity = (dir * speed) + Vector3.up * rigidbody.velocity.y;
         
-        transform.rotation = Quaternion.LookRotation(dir);
+        var rot = Quaternion.LookRotation(dir * speed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
+        movementValue = Mathf.Abs(dir.magnitude);
     }
     public void OnInteractKeyboard()
     {
@@ -72,8 +77,11 @@ public class PlayerController : MonoBehaviour
     //Móvil
     public void OnMoveJoystick()
     {
-        rigidbody.velocity = (joystick.dir * speed);
-        transform.rotation = Quaternion.LookRotation(joystick.dir);
+        rigidbody.velocity = (joystick.dir * speed) + Vector3.up * rigidbody.velocity.y;
+
+        var rot = Quaternion.LookRotation(joystick.dir * speed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
+        movementValue = Mathf.Abs(joystick.dir.magnitude);
     }
     public void OnStop()
     {

@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PickUpSheep : MonoBehaviour
 {
-    private SheepBehavior sheepToTake;
+    [SerializeField] private SheepBehavior sheepToTake;
     [SerializeField] private Transform pickUpPosition;
 
     private int sheepsIn = 0;
@@ -15,11 +15,17 @@ public class PickUpSheep : MonoBehaviour
     private InputController input;
 
     private bool isPicking;
+
+    private int count = 0;
+
+    [SerializeField] private Vector3 throwForce;
+    private PlayerController playerController;
     
     private void Awake()
     {
         input = new InputController();
-        input.Player.Interact.performed += (ctx) => PickUp();
+        input.Player.Interact.started += (ctx) => Interact();
+        playerController = FindObjectOfType<PlayerController>();
     }
 
     // Start is called before the first frame update
@@ -31,35 +37,68 @@ public class PickUpSheep : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        print("Ay");
-        if (other.gameObject.CompareTag("Sheep") && !isPicking)
-        {
-            sheepToTake = other.GetComponent<SheepBehavior>();
-            PickUp();
-            isPicking = true;
+    private void OnTriggerEnter(Collider other) {
+        if (other.gameObject.CompareTag("Sheep")) {
+            count++;
         }
     }
 
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (other.gameObject.CompareTag("Sheep"))
-    //    {
-    //        sheepToTake = gameObject.GetComponent<SheepBehavior>();
-    //    }
-    //}
-
-    void PickUp()
+    private void OnTriggerStay(Collider other)
     {
+        if (other.gameObject.CompareTag("Sheep") && !isPicking)
+        {
+            sheepToTake = other.gameObject.GetComponent<SheepBehavior>();
+        }
+    }
+    
+    private void OnTriggerExit(Collider other) {
+        if (other.gameObject.CompareTag("Sheep")) {
+            count--;
+        }
+    }
+
+
+    void Interact() {
+        if (isPicking) {
+            Throw();
+        }
+        else {
+            PickUp();
+        }
+    }
+    
+    
+    void PickUp() {
+        if (!sheepToTake || isPicking || count <= 0) return; 
+ 
         sheepToTake.Picked();
         sheepToTake.transform.SetParent(pickUpPosition);
         sheepToTake.GetComponent<Collider>().enabled = false;
         sheepToTake.transform.DOLocalMove(Vector3.zero, 0.3f);
+        isPicking = true;
+        count--;
+    }
+
+    void Throw() {
+        sheepToTake.transform.SetParent(null);
+        sheepToTake.Released();
         
+        sheepToTake.GetComponent<Collider>().enabled = true;
+
+        sheepToTake.GetComponent<Rigidbody>().AddForce(transform.forward * throwForce.x +  transform.up * throwForce.y);
+        isPicking = false;
+    }
+    
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
     }
 
 }

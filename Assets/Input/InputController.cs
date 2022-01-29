@@ -41,7 +41,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""id"": ""acb5e80b-f083-4797-b5a9-e9211706d369"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
-                    ""interactions"": """"
+                    ""interactions"": ""Press(behavior=2)""
                 },
                 {
                     ""name"": ""Minigame"",
@@ -167,17 +167,6 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""name"": """",
                     ""id"": ""fac25271-d51f-4af2-8512-0602b5a644e4"",
                     ""path"": ""<Keyboard>/e"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""4afa17c9-2041-405c-96f7-8f24c53e1c75"",
-                    ""path"": ""*/{PrimaryAction}"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
