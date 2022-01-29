@@ -9,6 +9,11 @@ TagManager:
   - Destroyer
   - Ground
   - Sheep
+  - TriggerGanasDeCagar
+  - TriggerSed
+  - TriggerChill
+  - TriggerComida
+  - TriggerLimpieza
   layers:
   - Default
   - TransparentFX

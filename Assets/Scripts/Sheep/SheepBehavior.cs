@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -118,8 +119,11 @@ public class SheepBehavior : MonoBehaviour
             saciandoNecesidad = false;
         }
         if(isPlayerClose) return;
-        if (Vector3.Distance(nextPosition,transform.position) <= 1f && locked == false)
+        if (Vector3.Distance(nextPosition, transform.position) <= 1f && locked == false) {
             move = StartCoroutine(randomMovement());
+            print("Illomemmuevo");
+        }
+            
     }
     void SaciandoNecesidad()
     {
@@ -179,7 +183,7 @@ public class SheepBehavior : MonoBehaviour
         while (!correctDestination)
         {
             
-
+            
             Vector3 origin = new Vector3(transform.position.x + Random.Range(-3, 3f), transform.position.y + 20,
                 transform.position.z + Random.Range(-3, 3f));
 
@@ -346,18 +350,33 @@ public class SheepBehavior : MonoBehaviour
         navMeshAgent.enabled = false;
         rb.isKinematic = true;
         picked = true;
+        isPlayerClose = false;
     }
 
     public void Released()
     {
-        navMeshAgent.enabled = true;
         rb.isKinematic = false;
-        picked = false;
+
+        StartCoroutine(Recover());
     }
 
     private void ChangeEmoji(int numberOfEmoji)
     {
         emoji.sprite = sprite[numberOfEmoji];
         ChangeState(1);
+    }
+
+    IEnumerator Recover() {
+        yield return new WaitForSeconds(3);
+        var rot = new Vector3(0, transform.rotation.eulerAngles.y, 0);
+        transform.DORotate(rot, 0.5f).OnComplete(() => {
+            rb.isKinematic = true;
+        });
+        yield return new WaitForSeconds(2);
+
+        picked = false;
+        navMeshAgent.enabled = true;
+        locked = false;
+        nextPosition = transform.position;
     }
 }
