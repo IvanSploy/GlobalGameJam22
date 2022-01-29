@@ -72,8 +72,11 @@ public class PickUpSheep : MonoBehaviour
     
     
     void PickUp() {
-        if (!sheepToTake || isPicking || count <= 0) return; 
- 
+        if (!sheepToTake || isPicking || count <= 0) return;
+
+        if (sheepToTake.recover != null) {
+            StopCoroutine(sheepToTake.recover);
+        }
         sheepToTake.Picked();
         sheepToTake.transform.SetParent(pickUpPosition);
         sheepToTake.GetComponent<Collider>().enabled = false;
