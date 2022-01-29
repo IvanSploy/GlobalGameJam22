@@ -425,16 +425,20 @@ PrefabInstance:
       value: Sheep 1 (4)
       objectReference: {fileID: 0}
     - target: {fileID: 1205337337677701631, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205337337677701631, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_TagString
       value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 4699228237007513582, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8680134683827187745, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
@@ -622,16 +626,20 @@ PrefabInstance:
       value: Sheep 1 (5)
       objectReference: {fileID: 0}
     - target: {fileID: 1205337337677701631, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205337337677701631, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_TagString
       value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 4699228237007513582, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8680134683827187745, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
@@ -734,7 +742,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1205337337677701602, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.79
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 1205337337677701602, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_LocalPosition.y
@@ -886,16 +894,20 @@ PrefabInstance:
       value: Sheep 1
       objectReference: {fileID: 0}
     - target: {fileID: 1205337337677701631, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205337337677701631, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_TagString
       value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 4699228237007513582, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8680134683827187745, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
@@ -1197,11 +1209,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8013387791586462172, guid: 7bc181991b9640f4790387dfa7208759, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.880802
+      value: 20.380806
       objectReference: {fileID: 0}
     - target: {fileID: 8013387791586462172, guid: 7bc181991b9640f4790387dfa7208759, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.1459446
+      value: -15.136325
       objectReference: {fileID: 0}
     - target: {fileID: 8013387791586462175, guid: 7bc181991b9640f4790387dfa7208759, type: 3}
       propertyPath: m_mainAngle
@@ -1217,11 +1229,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9131768381841754501, guid: 7bc181991b9640f4790387dfa7208759, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 12.880802
+      value: 20.380806
       objectReference: {fileID: 0}
     - target: {fileID: 9131768381841754501, guid: 7bc181991b9640f4790387dfa7208759, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.1459446
+      value: -15.136325
       objectReference: {fileID: 0}
     - target: {fileID: 9131768381841754501, guid: 7bc181991b9640f4790387dfa7208759, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1321,16 +1333,20 @@ PrefabInstance:
       value: Sheep 1 (2)
       objectReference: {fileID: 0}
     - target: {fileID: 1205337337677701631, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1205337337677701631, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_TagString
       value: Sheep
       objectReference: {fileID: 0}
     - target: {fileID: 4699228237007513582, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8680134683827187745, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21b23a27f0ec28e45b4ad75d43cae613, type: 3}
@@ -1514,7 +1530,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1893845456
 MonoBehaviour:
