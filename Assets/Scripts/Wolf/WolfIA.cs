@@ -7,6 +7,7 @@ public class WolfIA : MonoBehaviour
 {
     private NavMeshAgent navMeshAgent;
     private SheepBehavior[] sheepBehaviors;
+    private bool locked;
 
     private bool searchingSheep;
     // Start is called before the first frame update
@@ -42,19 +43,25 @@ public class WolfIA : MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (collider.CompareTag("Sheep"))
+        if (collider.CompareTag("Sheep") && locked == false)
         {
+            //ESTO ES PARA QUE NO SE COMA A DOS A LA VEZ
+            locked = true;
+            
             //METER ANIMACION LOBO
             //CREO CORRUTINA PARA QUE LA OVEJA DESAPAREZCA EN CUANTO TERMINE LA ANIMACION
+            
             StartCoroutine(KillSheep(collider.gameObject));
         }
     }
 
     IEnumerator KillSheep(GameObject sheep)
     {
+        sheep.GetComponent<NavMeshAgent>().enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(sheep);
         sheepBehaviors = FindObjectsOfType<SheepBehavior>();
+        locked = false;
         SearchSheeps();
     }
 }
