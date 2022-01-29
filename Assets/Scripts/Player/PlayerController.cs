@@ -11,11 +11,16 @@ public class PlayerController : MonoBehaviour
     private Rigidbody rigidbody;
     private VirtualJoystick joystick;
     private VirtualButton interact;
+	
+    [SerializeField] private PickUpSheep pickUpSheep;
+    [SerializeField] private Animator anim;
 
     //Atributos
     public float speed = 5;
     public bool isMoving = false;
     public Vector3 dir;
+
+    public float movementValue;
 
     private void Awake()
     {
@@ -42,11 +47,13 @@ public class PlayerController : MonoBehaviour
         if (joystick.isMoving)
         {
             OnMoveJoystick();
+            anim.SetBool("Moving", true);
         }
 
         if (isMoving)
         {
             OnMoveKeyboard();
+            anim.SetBool("Moving", true);
         }
     }
 
@@ -66,9 +73,11 @@ public class PlayerController : MonoBehaviour
         dir = Vector3.zero;
         dir.x = screenDir.x;
         dir.z = screenDir.y;
-        rigidbody.velocity = (dir * speed);
+        rigidbody.velocity = (dir * speed) + Vector3.up * rigidbody.velocity.y;
         
-        transform.rotation = Quaternion.LookRotation(dir);
+        var rot = Quaternion.LookRotation(dir * speed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
+        movementValue = Mathf.Abs(dir.magnitude);
     }
     public void OnInteract()
     {
@@ -78,8 +87,11 @@ public class PlayerController : MonoBehaviour
     //Móvil
     public void OnMoveJoystick()
     {
-        rigidbody.velocity = (joystick.dir * speed);
-        transform.rotation = Quaternion.LookRotation(joystick.dir);
+        rigidbody.velocity = (joystick.dir * speed) + Vector3.up * rigidbody.velocity.y;
+
+        var rot = Quaternion.LookRotation(joystick.dir * speed);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
+        movementValue = Mathf.Abs(joystick.dir.magnitude);
     }
     public void OnStop()
     {
@@ -87,6 +99,7 @@ public class PlayerController : MonoBehaviour
         noVel.x = 0;
         noVel.z = 0;
         rigidbody.velocity = noVel;
+        anim.SetBool("Moving", false);
     }
 
     private void OnEnable()
