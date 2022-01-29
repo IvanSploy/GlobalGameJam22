@@ -40,14 +40,16 @@ public class SheepBehavior : MonoBehaviour
     private Rigidbody rb;
 
     private bool picked;
+
+    [SerializeField] private float fleeSpeed;
+    [SerializeField] private float chillSpeed;
     private void Awake()
     {        
         state = 0;
         navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.enabled = false;
         playerController = FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody>();
-
+        navMeshAgent.speed = chillSpeed;
         //emojiChange = GetComponentInChildren<EmojiChange>();
         //worldManager = FindObjectOfType<WorldManager>();
     }
@@ -248,7 +250,7 @@ public class SheepBehavior : MonoBehaviour
         {
             isPlayerClose = true;
             StopCoroutine(move);
-            navMeshAgent.speed = 1;
+            navMeshAgent.speed = chillSpeed;
         }
     }
 
@@ -312,7 +314,7 @@ public class SheepBehavior : MonoBehaviour
         {
             isPlayerClose = false;
             locked = false;
-            navMeshAgent.speed = 4;
+            navMeshAgent.speed = fleeSpeed;
         }
     }
     
