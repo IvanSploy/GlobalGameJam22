@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 
@@ -18,19 +19,12 @@ public class SheepBehavior : MonoBehaviour
     private float tiempoChill;
     private float tiempoComida;
     private float tiempoLimpieza;
-
     private bool isPlayerClose;
-
     private NavMeshAgent navMeshAgent;
     private PlayerController playerController;
-
-    //private EmojiChange emojiChange;
     private int state;
-    [SerializeField] private float speed = 2;
     private bool sinNecesidad, conNecesidad, saciandoNecesidad;
     //0 = Sin necesidad, 1 = Con necesidad, 2 = Saciando necesidad
-
-    /* SIN NECESIDAD */
     private Vector3 nextPosition;
     private Coroutine countdownSheep;
     private Coroutine move;
@@ -38,11 +32,14 @@ public class SheepBehavior : MonoBehaviour
     [SerializeField] private float count;
     [SerializeField] private float setCount;
     private Rigidbody rb;
-
     private bool picked;
-
     [SerializeField] private float fleeSpeed;
     [SerializeField] private float chillSpeed;
+    [SerializeField] private Slider progressbar;
+    [SerializeField] private Image backgroundColor;
+    [SerializeField] private Canvas canvas;
+    [SerializeField] private Sprite [] sprite;
+    [SerializeField] private Image emoji;
     private void Awake()
     {        
         state = 0;
@@ -50,13 +47,16 @@ public class SheepBehavior : MonoBehaviour
         playerController = FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody>();
         navMeshAgent.speed = chillSpeed;
-        //emojiChange = GetComponentInChildren<EmojiChange>();
-        //worldManager = FindObjectOfType<WorldManager>();
+        progressbar = GetComponentInChildren<Slider>();
+        canvas = GetComponentInChildren<Canvas>();
     }
 
     private void Start()
     {
         nextPosition = transform.position;
+        progressbar.maxValue = setCount;
+        progressbar.minValue = 0;
+        canvas.enabled = false;
     }
 
     // Update is called once per frame
@@ -71,10 +71,6 @@ public class SheepBehavior : MonoBehaviour
             if (!transform.position.Equals(nextPosition))
             {
                 navMeshAgent.enabled = true;
-                //float step = speed * Time.deltaTime;
-                //transform.position = Vector3.MoveTowards(transform.position, nextPosition, step);
-                //Quaternion rotTarget = Quaternion.LookRotation(nextPosition - this.transform.position);
-                //this.transform.rotation = Quaternion.RotateTowards(this.transform.rotation, rotTarget, 50f * Time.deltaTime);
             }
             else
             {
@@ -96,46 +92,42 @@ public class SheepBehavior : MonoBehaviour
     {
         if (!sinNecesidad)
         {
+            canvas.enabled = false;
             count = setCount;
             UpdateRandomTime();
             sinNecesidad = true;
             conNecesidad = false;
             saciandoNecesidad = false;
-        } 
-        
-        UpdateNeeds();
-
-        if(isPlayerClose) return;
-        
-        if (Vector3.Distance(nextPosition,transform.position) <= 1f && locked == false)
-        {
-            move = StartCoroutine(randomMovement());
         }
-            
-        
+        UpdateNeeds();
+        if(isPlayerClose) return;
+        if (Vector3.Distance(nextPosition,transform.position) <= 1f && locked == false)
+            move = StartCoroutine(randomMovement());
     }
 
     void ConNecesidad()
     {
         if(!conNecesidad)
         {
+            canvas.enabled = true;
+            Color newColor = new Color(1, 0, 0.4f, 1);
+            backgroundColor.color = newColor;
             countdownSheep = StartCoroutine(countdown());
             conNecesidad = true;
             sinNecesidad = false;
             saciandoNecesidad = false;
         }
-
         if(isPlayerClose) return;
-
         if (Vector3.Distance(nextPosition,transform.position) <= 1f && locked == false)
-        {
             move = StartCoroutine(randomMovement());
-        }
     }
     void SaciandoNecesidad()
     {
         if(!saciandoNecesidad)
         {
+            canvas.enabled = true;
+            Color newColor = new Color(0.5f, 1f, 0.2f, 1);
+            backgroundColor.color = newColor;
             StopCoroutine(countdownSheep);
             StopCoroutine(move);
             saciandoNecesidad = true;
@@ -147,6 +139,7 @@ public class SheepBehavior : MonoBehaviour
             count += Time.deltaTime * 3;
         if (count > setCount)
             ChangeState(0);
+        progressbar.value = count;
     }
 
     void UpdateState(int state)
@@ -215,8 +208,16 @@ public class SheepBehavior : MonoBehaviour
         comida += tiempoComida * Time.deltaTime;
         limpieza += tiempoLimpieza * Time.deltaTime;
 
-        if (ganasDeCagar > 10 || sed > 10 || chill > 10 || comida > 10 || limpieza > 10)
-            ChangeState(1);
+        if (ganasDeCagar >= 10)
+            ChangeEmoji(0);
+        else if (sed >= 10)
+            ChangeEmoji(1);
+        else if (chill >= 10)
+            ChangeEmoji(2);
+        else if (comida >= 10)
+            ChangeEmoji(3);
+        else if (limpieza >= 10)
+            ChangeEmoji(4);
     }
 
     void UpdateRandomTime()
@@ -238,6 +239,7 @@ public class SheepBehavior : MonoBehaviour
     {
         while(count > 0)
         {
+            progressbar.value = count;
             count -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }   
@@ -258,23 +260,23 @@ public class SheepBehavior : MonoBehaviour
     {
         if(state == 1)
         {
-            //if (collider.gameObject.CompareTag("TriggerGanasDeCagar") && ganasDeCagar > 10)
+            //if (collider.gameObject.CompareTag("TriggerGanasDeCagar") && ganasDeCagar >= 10)
             //{
             //    ChangeState(2);
             //}
-            //else if(collider.gameObject.CompareTag("TriggerSed") && sed > 10)
+            //else if(collider.gameObject.CompareTag("TriggerSed") && sed >= 10)
             //{
             //    ChangeState(2);
             //}
-            //else if(collider.gameObject.CompareTag("TriggerChill") && chill > 10)
+            //else if(collider.gameObject.CompareTag("TriggerChill") && chill >= 10)
             //{
             //    ChangeState(2);
             //}
-            //else if(collider.gameObject.CompareTag("TriggerComida") && comida > 10)
+            //else if(collider.gameObject.CompareTag("TriggerComida") && comida >= 10)
             //{
             //    ChangeState(2);
             //}
-            //else if(collider.gameObject.CompareTag("TriggerLimpieza") && limpieza > 10)
+            //else if(collider.gameObject.CompareTag("TriggerLimpieza") && limpieza >= 10)
             //{
             //    ChangeState(2);
             //}
@@ -286,23 +288,23 @@ public class SheepBehavior : MonoBehaviour
     {
         if(state == 2)
         {
-            if (collider.gameObject.CompareTag("TriggerGanasDeCagar") && ganasDeCagar > 10)
+            if (collider.gameObject.CompareTag("TriggerGanasDeCagar") && ganasDeCagar >= 10)
             {
                 ChangeState(1);
             }
-            else if(collider.gameObject.CompareTag("TriggerSed") && sed > 10)
+            else if(collider.gameObject.CompareTag("TriggerSed") && sed >= 10)
             {
                 ChangeState(1);
             }
-            else if(collider.gameObject.CompareTag("TriggerChill") && chill > 10)
+            else if(collider.gameObject.CompareTag("TriggerChill") && chill >= 10)
             {
                 ChangeState(1);
             }
-            else if(collider.gameObject.CompareTag("TriggerComida") && comida > 10)
+            else if(collider.gameObject.CompareTag("TriggerComida") && comida >= 10)
             {
                 ChangeState(1);
             }
-            else if(collider.gameObject.CompareTag("TriggerLimpieza") && limpieza > 10)
+            else if(collider.gameObject.CompareTag("TriggerLimpieza") && limpieza >= 10)
             {
                 ChangeState(1);
             }
@@ -353,4 +355,9 @@ public class SheepBehavior : MonoBehaviour
         picked = false;
     }
 
+    private void ChangeEmoji(int numberOfEmoji)
+    {
+        emoji.sprite = sprite[numberOfEmoji];
+        ChangeState(1);
+    }
 }
