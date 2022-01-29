@@ -42,6 +42,10 @@ public class SheepBehavior : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private Sprite [] sprite;
     [SerializeField] private Image emoji;
+
+
+
+    [SerializeField] private Animator anim;
     private void Awake()
     {        
         state = 0;
@@ -73,6 +77,7 @@ public class SheepBehavior : MonoBehaviour
             if (!transform.position.Equals(nextPosition))
             {
                 navMeshAgent.enabled = true;
+                
             }
             else
             {
@@ -83,7 +88,6 @@ public class SheepBehavior : MonoBehaviour
         {
             navMeshAgent.enabled = true;
             PlayerCloseMovement();
-            
         }
         
     }
@@ -176,7 +180,9 @@ public class SheepBehavior : MonoBehaviour
     IEnumerator randomMovement()
     {
         locked = true;
+        anim.SetBool("Moving", false);
         yield return new WaitForSeconds(Random.Range(5, 12));
+        anim.SetBool("Moving", true);
         
         var correctDestination = false;
 
@@ -329,7 +335,7 @@ public class SheepBehavior : MonoBehaviour
         Vector3 dir = transform.position + (playerController.transform.position - transform.position).normalized * -3;
 
         Vector3 origin = new Vector3(dir.x, transform.position.y + 20, dir.z);
-        
+        anim.SetBool("Moving", true);
         
         
         RaycastHit hit;
@@ -347,6 +353,7 @@ public class SheepBehavior : MonoBehaviour
 
     public void Picked()
     {
+        anim.SetBool("Picked", true);
         navMeshAgent.enabled = false;
         transform.DORotate(Vector3.forward * 180, 0.3f);
         rb.isKinematic = true;
@@ -370,6 +377,8 @@ public class SheepBehavior : MonoBehaviour
     IEnumerator Recover() {
         yield return new WaitForSeconds(3);
         var rot = new Vector3(0, transform.rotation.eulerAngles.y, 0);
+        anim.SetBool("Picked", false);
+        anim.SetBool("Moving", false);
         transform.DORotate(rot, 0.5f).OnComplete(() => {
             rb.isKinematic = true;
         });
