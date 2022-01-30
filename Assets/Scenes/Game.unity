@@ -1748,6 +1748,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: MobileCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4814479722511207090, guid: 401f737463ec9424ca37fa0522d6bce0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4814479722881683531, guid: 401f737463ec9424ca37fa0522d6bce0, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 401f737463ec9424ca37fa0522d6bce0, type: 3}
 --- !u!4 &1230337385 stripped
