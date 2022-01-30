@@ -63,6 +63,7 @@ public class CameraTargetSwitcher : MonoBehaviour
         mode = Mode.MOVING;
         float startTime = Time.realtimeSinceStartup;
         Vector3 initialPos = freeLook.position;
+        initialPos.y += 0.5f;
         Vector3 initialRot = freeLook.rotation.eulerAngles;
         while (Vector3.Distance(freeLook.position, target.position) > deltaDistance)
         {

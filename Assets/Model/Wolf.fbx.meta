@@ -6,7 +6,22 @@ ModelImporter:
   - first:
       74: -78736315327977006
     second: metarig|metarigAction.004
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 606e7a02c06768149b374c37aac1e401, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.001
+    second: {fileID: 2100000, guid: 498fe43fb9f60ec4abae3453c36ab7fe, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.002
+    second: {fileID: 2100000, guid: c317c6189fafdc7468cd7976ac47fa4a, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

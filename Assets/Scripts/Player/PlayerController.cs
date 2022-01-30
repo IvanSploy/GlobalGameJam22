@@ -79,7 +79,8 @@ public class PlayerController : MonoBehaviour
     {
         rigidbody.velocity = (joystick.dir * speed) + Vector3.up * rigidbody.velocity.y;
 
-        var rot = Quaternion.LookRotation(joystick.dir * speed);
+        var rot = Quaternion.Euler(Vector3.zero);
+        if (!joystick.dir.Equals(Vector3.zero)) rot = Quaternion.LookRotation(joystick.dir * speed);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
         movementValue = Mathf.Abs(joystick.dir.magnitude);
     }

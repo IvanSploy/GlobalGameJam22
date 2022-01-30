@@ -26,6 +26,11 @@ public class SceneTransitioner : MonoBehaviour
         anim = GetComponent<Animator>();
     }
 
+    /*private void Start()
+    {
+        StartTransition("Hola chami", 1);
+    }*/
+
     public void StartTransition(string text, float delay)
     {
         SetText(text);

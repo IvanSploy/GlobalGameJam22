@@ -22,7 +22,6 @@ public class SheepBehavior : MonoBehaviour
     private float tiempoLimpieza;
     private bool isPlayerClose;
     private NavMeshAgent navMeshAgent;
-    private PlayerController playerController;
     private int state;
     private bool sinNecesidad, conNecesidad, saciandoNecesidad;
     //0 = Sin necesidad, 1 = Con necesidad, 2 = Saciando necesidad
@@ -50,7 +49,6 @@ public class SheepBehavior : MonoBehaviour
     {        
         state = 0;
         navMeshAgent = GetComponent<NavMeshAgent>();
-        playerController = FindObjectOfType<PlayerController>();
         rb = GetComponent<Rigidbody>();
         navMeshAgent.speed = chillSpeed;
         progressbar = GetComponentInChildren<Slider>();
@@ -256,13 +254,19 @@ public class SheepBehavior : MonoBehaviour
             progressbar.value = count;
             count -= Time.deltaTime;
             yield return new WaitForEndOfFrame();
-        }   
+        }
+        Die();
+    }
+
+    public void Die()
+    {
+        if (!PlayerManager.instance.nextIsWolf) PlayerManager.instance.player.GetComponentInChildren<WolfIA>().ReloadSheeps();
         Destroy(gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("SheepDetector"))
         {
             isPlayerClose = true;
             StopCoroutine(move);
@@ -326,7 +330,7 @@ public class SheepBehavior : MonoBehaviour
                 return;
         }
 
-        if(collider.gameObject.CompareTag("Player"))
+        if(collider.gameObject.CompareTag("SheepDetector"))
         {
             isPlayerClose = false;
             locked = false;
@@ -336,7 +340,7 @@ public class SheepBehavior : MonoBehaviour
     
     private void PlayerCloseMovement()
     {
-        Vector3 dir = transform.position + (playerController.transform.position - transform.position).normalized * -3;
+        Vector3 dir = transform.position + (PlayerManager.instance.player.transform.position - transform.position).normalized * -3;
 
         Vector3 origin = new Vector3(dir.x, transform.position.y + 20, dir.z);
         anim.SetBool("Moving", true);

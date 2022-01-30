@@ -14,6 +14,11 @@ TagManager:
   - TriggerChill
   - TriggerComida
   - TriggerLimpieza
+  - Bistec
+  - Trap
+  - Fence
+  - Wolf
+  - SheepDetector
   layers:
   - Default
   - TransparentFX
