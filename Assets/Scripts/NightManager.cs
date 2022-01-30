@@ -46,7 +46,8 @@ public class NightManager : MonoBehaviour
                 isNight = false;
                 progressTime = 0;
                 progressbar.gameObject.SetActive(false);
-                GameManager.instance.TransitionToDay();
+                if (GameManager.instance.currentDay < 7) GameManager.instance.TransitionToDay();
+                else GameManager.instance.Win();
             }
         }
     }

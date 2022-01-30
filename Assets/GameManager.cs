@@ -46,6 +46,7 @@ public class GameManager : MonoBehaviour {
         night = FindObjectOfType<NightManager>();
 
         night.gameObject.SetActive(false);
+        StartCoroutine(WaitForGameOver());
     }
 
     private void Update()
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour {
         {
             minigameImg.gameObject.SetActive(true);
             mobileCanvas.SetActive(false);
+            night.gameObject.SetActive(true);
         });
         transitioner.OnEnd.AddListener(() => minigameManager.InitMinigame(currentDay));
         transitioner.SetImage(moonLogo);
@@ -80,7 +82,8 @@ public class GameManager : MonoBehaviour {
             minigameImg.gameObject.SetActive(false);
             FindObjectOfType<PlayerManager>().SwitchPlayer();
             });
-        transitioner.OnEnd.AddListener(() => night.gameObject.SetActive(true));
+        transitioner.SetBackgroundColor(Color.black);
+        transitioner.SetTextColor(Color.red);
         transitioner.SetTitle("WOLF IS AWAKE!");
         transitioner.SetSubtitle("May your sheeps survive?!");
         transitioner.StartTransition(2);
@@ -103,11 +106,11 @@ public class GameManager : MonoBehaviour {
             day.progressbar.gameObject.SetActive(true);
         });
         transitioner.SetImage(sunLogo);
-        transitioner.SetBackgroundColor(new Color(0.2f, 1f, 1f));
+        transitioner.SetBackgroundColor(new Color(0.75f, 1f, 1f));
         transitioner.SetTextColor(Color.black);
         currentDay++;
-        transitioner.SetSubtitle("Current sheeps: " + currentDay);
-        transitioner.SetTitle($"Day {currentDay}");
+        transitioner.SetSubtitle($"{ovejitasvivas} sheeps alive");
+        transitioner.SetTitle($"Day {currentDay} of 7");
         transitioner.StartTransition(2);
         MusicManager.instance.SetSong(1);
     }
@@ -126,7 +129,7 @@ public class GameManager : MonoBehaviour {
         transitioner.SetSubtitle("All sheeps are dead :(");
         transitioner.SetTitle($"Game Over");
         transitioner.StartTransition(2);
-        MusicManager.instance.SetSong(1);
+        MusicManager.instance.SetSong(0);
     }
 
     public void Win()
@@ -137,12 +140,18 @@ public class GameManager : MonoBehaviour {
             LevelLoader.instance.ChangeScene(0);
         });
         transitioner.SetImage(sunLogo);
-        transitioner.SetBackgroundColor(Color.blue);
+        transitioner.SetBackgroundColor(Color.black);
         transitioner.SetTextColor(Color.white);
         currentDay++;
         transitioner.SetSubtitle("All sheeps are dead :(");
-        transitioner.SetTitle($"Game Over");
+        transitioner.SetTitle($"Victoria");
         transitioner.StartTransition(2);
-        MusicManager.instance.SetSong(1);
+        MusicManager.instance.SetSong(0);
+    }
+
+    IEnumerator WaitForGameOver()
+    {
+        yield return new WaitUntil(() => ovejitasvivas==0);
+        GameOver();
     }
 }

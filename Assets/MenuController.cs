@@ -44,9 +44,11 @@ public class MenuController : MonoBehaviour {
     public void StartLevel()
     {
         SceneTransitioner transitioner = FindObjectOfType<SceneTransitioner>();
-        transitioner.SetTitle("Day 1");
+        transitioner.SetTitle("Day 1 of 7");
         MusicManager.instance.SetSong(1);
-        transitioner.SetSubtitle("Sheeps remaining: 7");
+        transitioner.SetBackgroundColor(new Color(0.75f, 1f, 1f));
+        transitioner.SetTextColor(Color.black);
+        transitioner.SetSubtitle("15 sheeps alive");
         transitioner.OnTransition.AddListener(() => transitioner.GetComponent<LevelLoader>().NextLevel());
         transitioner.StartTransition(2);
     }
