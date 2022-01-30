@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
@@ -42,7 +43,6 @@ public class SheepBehavior : MonoBehaviour
     [SerializeField] private Sprite [] sprite;
     [SerializeField] private Image emoji;
     private Target target;
-
 
     [SerializeField] private Animator anim;
     private void Awake()
@@ -261,6 +261,7 @@ public class SheepBehavior : MonoBehaviour
     public void Die()
     {
         if (!PlayerManager.instance.nextIsWolf) PlayerManager.instance.player.GetComponentInChildren<WolfIA>().ReloadSheeps();
+        GameManager.instance.ovejitasvivas--;
         Destroy(gameObject);
     }
 
