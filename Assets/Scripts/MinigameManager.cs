@@ -14,6 +14,8 @@ public class MinigameManager : MonoBehaviour {
     private IEnumerator sheepGenCoroutine;
     private SheepGenerator sheepGenerator;
 
+    private bool v;
+
 
     private void Awake() {
         sheepGenerator = FindObjectOfType<SheepGenerator>();
@@ -29,28 +31,30 @@ public class MinigameManager : MonoBehaviour {
     }
 
     private void Start() {
-        InitMinigame(6);
+        InitMinigame(7);
     }
     
 
     public void InitMinigame(int dif) {
         difficulty = dif;
-        StartCoroutine(sheepGenCoroutine);
+        
 
         if (difficulty <= 3) {
             InitFences(1);
-            return;
+            v = false;
         }
         
-        if (difficulty <= 6) {
+        if (difficulty <= 5) {
             InitFences(2);
-            return;
+            v = false;
         }
         
         if (difficulty <= 6) {
             InitFences(3);
-            return;
+            v = true;
         }
+        
+        StartCoroutine(sheepGenCoroutine);
     }
 
     void InitFences(int n) {
@@ -88,14 +92,21 @@ public class MinigameManager : MonoBehaviour {
             currentS += spIncrement;
 
             sheepGenerator.GenerateSheep(Mathf.Clamp(currentS, 0, 600));
-            yield return new WaitForSeconds(Mathf.Clamp(currentF, 2, 100));
+            yield return new WaitForSeconds(Mathf.Clamp(currentF, 2f, 100));
+
+            if (v) {
+                spIncrement += 5f * (difficulty%3 + 1);
+                frequencyIncrement += 0.1f * (difficulty % 3 + 1);
+            }
+            else {
+                spIncrement += 2f * (difficulty%2 + 1);
+                frequencyIncrement += 1.5f + 1;
+            }
             
-            spIncrement += 15f * (difficulty%3 + 1);
-            frequencyIncrement += 0.1f * (difficulty%3 + 1);
         }
     }
 
     public void OnFail() {
-        onFail.Invoke();
+        //onFail.Invoke();
     }
 }
