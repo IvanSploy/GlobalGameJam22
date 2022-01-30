@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -25,6 +26,8 @@ public class GameManager : MonoBehaviour {
     
     [SerializeField] Sprite sunLogo;
     [SerializeField] Sprite moonLogo;
+    public int ovejitasvivas = 15;
+    [SerializeField] TextMeshProUGUI numeroovejitasGUI;
 
     private void Awake() {
         if (instance)
@@ -43,6 +46,11 @@ public class GameManager : MonoBehaviour {
         night = FindObjectOfType<NightManager>();
 
         night.gameObject.SetActive(false);
+    }
+
+    private void Update()
+    {
+        numeroovejitasGUI.text = (ovejitasvivas.ToString());
     }
 
     public void TransitionToSleep() 

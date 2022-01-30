@@ -121,6 +121,7 @@ public class WolfIA : MonoBehaviour
         Destroy(sheep);
         killed = true;
         locked = false;
+        GameManager.instance.ovejitasvivas--;
     }
     IEnumerator EatBistec(GameObject bistec)
     {
