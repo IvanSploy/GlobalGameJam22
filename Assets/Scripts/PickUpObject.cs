@@ -45,7 +45,7 @@ public class PickUpObject : MonoBehaviour
         if (other.gameObject.CompareTag("Sheep")) {
             count++;
         }
-        if (other.gameObject.CompareTag("Trap") || other.gameObject.CompareTag("Bistec"))
+        if (other.gameObject.CompareTag("Trap") || other.gameObject.CompareTag("Bistec") || other.gameObject.CompareTag("Fence"))
         {
             objectToTake = other.gameObject;
         }
