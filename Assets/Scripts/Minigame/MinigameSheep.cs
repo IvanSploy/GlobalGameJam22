@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -11,15 +12,23 @@ public class MinigameSheep : MonoBehaviour {
     private Rigidbody2D rb;
     private MinigameManager minigameManager;
 
+    private InputController input;
+
     private void Awake() {
         rb = GetComponent<Rigidbody2D>();
         minigameManager = FindObjectOfType<MinigameManager>();
+
+        input = new InputController();
+        
+        input.Player.Minigame.performed += (ctx) => OnJump();
+        
     }
 
-    private void Update() {
-        if (Input.GetMouseButtonDown(0) && grounded) {
+    private void OnJump() {
+        if (grounded) {
             rb.AddForce(Vector2.up * jumpForce);
             grounded = false;
+            transform.DORotate(new Vector3(0, 0, 20), 0.3f);
         }
     }
 
@@ -35,6 +44,7 @@ public class MinigameSheep : MonoBehaviour {
         if (other.gameObject.CompareTag("MinigameGround")) {
             if (!grounded) {
                 grounded = true;
+                transform.DORotate(Vector3.zero, 0.2f);
             }
 
             return;
@@ -53,6 +63,16 @@ public class MinigameSheep : MonoBehaviour {
 
     public void InitSheep(float sp) {
         speed = sp;
+    }
+    
+    private void OnEnable()
+    {
+        input.Enable();
+    }
+
+    private void OnDisable()
+    {
+        input.Disable();
     }
     
 }
