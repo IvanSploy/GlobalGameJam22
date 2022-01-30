@@ -99,5 +99,6 @@ public class GameManager : MonoBehaviour {
         transitioner.SetSubtitle("Current sheeps: " + currentDay);
         transitioner.SetTitle($"Day {currentDay}");
         transitioner.StartTransition(2);
+        MusicManager.instance.SetSong(1);
     }
 }
