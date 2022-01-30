@@ -9,13 +9,17 @@ public class WolfIA : MonoBehaviour
     private SheepBehavior[] sheepBehaviors;
     private bool locked;
     private bool killed = false;
+    public int state;
 
-    private bool searchingSheep;
     // Start is called before the first frame update
+
+    public float timeEating = 3;
+    public float timeInTrap = 10;
 
     private void Awake()
     {
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
+        state = 0;
     }
     void Start()
     {
@@ -24,7 +28,7 @@ public class WolfIA : MonoBehaviour
 
     private void Update()
     {
-        if(!locked) SearchSheeps();
+        UpdateState(state);
     }
 
     public void ReloadSheeps()
@@ -55,6 +59,11 @@ public class WolfIA : MonoBehaviour
         navMeshAgent.destination = sheepBehaviors[numberSheep].transform.position;
     }
 
+    public void GoToMeat()
+    {
+        Debug.Log(navMeshAgent.SetDestination(transform.parent.GetComponentInChildren<BistecBehaviour>().bistecTarget.transform.position));
+    }
+
     void OnTriggerEnter(Collider collider)
     {
         if (collider.CompareTag("Sheep") && locked == false)
@@ -67,14 +76,84 @@ public class WolfIA : MonoBehaviour
             
             StartCoroutine(KillSheep(collider.gameObject));
         }
+        if (collider.CompareTag("Bistec"))
+        {
+            //ESTO ES PARA QUE NO SE COMA A DOS A LA VEZ
+            locked = true;
+
+            //METER ANIMACION LOBO
+            //CREO CORRUTINA PARA QUE LA OVEJA DESAPAREZCA EN CUANTO TERMINE LA ANIMACION
+
+            StartCoroutine(EatBistec(collider.gameObject));
+        }
     }
 
     IEnumerator KillSheep(GameObject sheep)
     {
         sheep.GetComponent<NavMeshAgent>().enabled = false;
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(timeEating);
         Destroy(sheep);
         killed = true;
         locked = false;
     }
+    IEnumerator EatBistec(GameObject bistec)
+    {
+        yield return new WaitForSeconds(timeEating);
+        Destroy(bistec);
+        locked = false;
+        ChangeState(0);
+    }
+
+    public void GoToTrap()
+    {
+        TrapBehaviour trap = transform.parent.GetComponentInChildren<TrapBehaviour>();
+        transform.position = trap.transform.position;
+        locked = true;
+        StartCoroutine(WaitForRelease(trap));
+    }
+
+    IEnumerator WaitForRelease(TrapBehaviour trap)
+    {
+        yield return new WaitForSeconds(timeInTrap);
+        Destroy(trap.gameObject);
+        locked = false;
+        ChangeState(0);
+    }
+
+    #region Estados
+    void UpdateState(int state)
+    {
+        switch (state)
+        {
+            //Cazando
+            case 0:
+                if (!locked) SearchSheeps();
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    public void ChangeState(int newState)
+    {
+        locked = false;
+        switch (state)
+        {
+            //Comiendo carne
+            case 1:
+                GoToMeat();
+                break;
+
+            //En trampa
+            case 2:
+                GoToTrap();
+                break;
+
+            default:
+                break;
+        }
+        state = newState;
+    }
+    #endregion
 }

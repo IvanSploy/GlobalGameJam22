@@ -5,33 +5,14 @@ using UnityEngine;
 public class BistecBehaviour : MonoBehaviour
 {
     //Referencias
-    private GameObject bistecTarget;
+    public GameObject bistecTarget;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Bistec"))
         {
             bistecTarget = other.gameObject;
-            Debug.Log("Encontrado");
+            gameObject.transform.parent.GetComponentInChildren<WolfIA>().ChangeState(1);
         }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Sheep"))
-        {
-            bistecTarget = null;
-        }
-    }
-
-    public void GoToBistec()
-    {
-
-    }
-
-    public void GoToNormalBehaviour()
-    {
-        //Implementar métodos de la parte de vico.
-        Debug.Log("Funcionalidad no implementada.");
     }
 }
