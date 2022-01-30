@@ -91,8 +91,6 @@ public class SheepBehavior : MonoBehaviour
         
     }
 
-
-
     void SinNecesidad()
     {
         if (!sinNecesidad)
@@ -139,7 +137,7 @@ public class SheepBehavior : MonoBehaviour
             Color newColor = new Color(0.5f, 1f, 0.2f, 1);
             backgroundColor.color = newColor;
             StopCoroutine(countdownSheep);
-            StopCoroutine(move);
+            if (move != null) StopCoroutine(move);
             saciandoNecesidad = true;
             sinNecesidad = false;
             conNecesidad = false;
@@ -269,7 +267,7 @@ public class SheepBehavior : MonoBehaviour
         if (other.gameObject.CompareTag("SheepDetector"))
         {
             isPlayerClose = true;
-            StopCoroutine(move);
+            if(move!=null) StopCoroutine(move);
             navMeshAgent.speed = chillSpeed;
         }
     }
