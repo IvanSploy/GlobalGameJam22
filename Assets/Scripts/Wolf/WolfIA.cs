@@ -18,18 +18,21 @@ public class WolfIA : MonoBehaviour
     public float timeEating = 3;
     public float timeInTrap = 10;
 
+    private SoundManager sM;
     private void Awake()
     {
         navMeshAgent = GetComponentInParent<NavMeshAgent>();
         anim = transform.parent.GetComponentInChildren<Animator>();
         state = 0;
         ChangeState(0);
+        sM = FindObjectOfType<SoundManager>();
     }
     void Start()
     {
         sheepBehaviors = FindObjectsOfType<SheepBehavior>();
         anim.SetBool("Moving", false);
         anim.SetBool("Eating", false);
+        sM.Play(0);
     }
 
     private void Update()
@@ -115,6 +118,7 @@ public class WolfIA : MonoBehaviour
         anim.SetBool("Moving", false);
         anim.SetBool("Eating", true);
         sheep.GetComponent<NavMeshAgent>().enabled = false;
+        sM.Play(1);
         yield return new WaitForSeconds(timeEating);
         anim.SetBool("Eating", false);
         navMeshAgent.enabled = true;
@@ -127,6 +131,7 @@ public class WolfIA : MonoBehaviour
     {
         anim.SetBool("Moving", false);
         anim.SetBool("Eating", true);
+        sM.Play(1);
         yield return new WaitForSeconds(timeEating);
         anim.SetBool("Eating", false);
         navMeshAgent.enabled = true;
