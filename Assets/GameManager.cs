@@ -22,9 +22,6 @@ public class GameManager : MonoBehaviour {
     [SerializeField] Sprite sunLogo;
     [SerializeField] Sprite moonLogo;
 
-    private Image TransitionLogo;
-    [SerializeField] private Image bgTrans;
-
     private void Awake() {
         transitioner = FindObjectOfType<SceneTransitioner>();
         minigameManager = FindObjectOfType<MinigameManager>();
@@ -33,60 +30,55 @@ public class GameManager : MonoBehaviour {
         night = FindObjectOfType<NightManager>();
         
         night.gameObject.SetActive(false);
-
-        TransitionLogo = GameObject.Find("Image").GetComponent<Image>();
-        bgTrans = GameObject.Find("Fondo").GetComponent<Image>();
     }
 
-    public void TransitionToSleep() {
-        
-        StartCoroutine(ToSleepCoroutine());
-
-    }
-
-    IEnumerator ToSleepCoroutine() {
-        TransitionLogo.sprite = moonLogo;
-        bgTrans.color = Color.black;
-        transitioner.SetText("TIME TO SLEEP!");
+    public void TransitionToSleep() 
+    {
+        transitioner.ResetEvents();
+        transitioner.OnTransition.AddListener(() => minigameImg.gameObject.SetActive(true) );
+        transitioner.OnEnd.AddListener(() => minigameManager.InitMinigame(currentDay));
+        transitioner.SetImage(moonLogo);
+        transitioner.SetBackgroundColor(Color.black);
+        transitioner.SetTextColor(Color.white);
+        transitioner.SetTitle("TIME TO SLEEP!");
+        transitioner.SetSubtitle("Try not to wake up!");
         transitioner.StartTransition(2);
-        yield return new WaitForSeconds(1);
-        minigameImg.gameObject.SetActive(true);
-        yield return new WaitForSeconds(4);
-        minigameManager.InitMinigame(currentDay);
     }
     
-    public void TransitionToNight() {
-        StartCoroutine(ToNightCoroutine());
+    public void TransitionToNight()
+    {
+        light.color = new Color(0.094f, 0.057f, 0.28f);
+        minigameManager.enabled = false;
+        transitioner.ResetEvents();
+        transitioner.OnTransition.AddListener(() => {
+            minigameImg.gameObject.SetActive(false);
+            FindObjectOfType<PlayerManager>().SwitchPlayer();
+            });
+        transitioner.OnEnd.AddListener(() => night.gameObject.SetActive(true));
+        transitioner.SetSubtitle("Try not to kill your sheeps!");
+        transitioner.StartTransition(2);
         RenderSettings.skybox = nightSkybox;
     }
     
-    IEnumerator ToNightCoroutine() {
-        light.color = new Color(0.094f, 0.057f, 0.28f);
-        transitioner.SetText($"Night {currentDay}");
-        minigameManager.enabled = false;
-        transitioner.StartTransition(2);
-        yield return new WaitForSeconds(1);
-        minigameImg.gameObject.SetActive(false);
-        yield return new WaitForSeconds(2);
-        night.gameObject.SetActive(true);
-        
-    }
-    
-    public void TransitionToDay() {
-        StartCoroutine(ToDayCoroutine());
-        RenderSettings.skybox = daySkybox;
-    }
-    
-    IEnumerator ToDayCoroutine() {
-        TransitionLogo.sprite = sunLogo;
-        bgTrans.color = Color.cyan;
+    public void TransitionToDay()
+    {
+        transitioner.ResetEvents();
+        transitioner.OnTransition.AddListener(() => 
+        {
+            light.color = Color.white;
+            FindObjectOfType<PlayerManager>().SwitchPlayer();
+        });
+        transitioner.OnEnd.AddListener(() => {
+            day.gameObject.SetActive(true);
+            day.progressbar.gameObject.SetActive(true);
+            RenderSettings.skybox = daySkybox;
+        });
+        transitioner.SetImage(sunLogo);
+        transitioner.SetBackgroundColor(Color.cyan);
+        transitioner.SetTextColor(Color.white);
+        transitioner.SetSubtitle("Current sheeps: ??!");
         currentDay++;
-        transitioner.SetText($"Day {currentDay}");
+        transitioner.SetTitle($"Day {currentDay}");
         transitioner.StartTransition(2);
-        yield return new WaitForSeconds(1);
-        light.color = Color.white;
-        yield return new WaitForSeconds(2);
-        day.gameObject.SetActive(true);
-        day.progressbar.gameObject.SetActive(true);
     }
 }

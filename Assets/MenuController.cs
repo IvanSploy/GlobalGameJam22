@@ -40,4 +40,13 @@ public class MenuController : MonoBehaviour {
         
         mat.DOFade(0, 1);
     }
+
+    public void StartLevel()
+    {
+        SceneTransitioner transitioner = FindObjectOfType<SceneTransitioner>();
+        transitioner.SetTitle("Day 1");
+        transitioner.SetSubtitle("Sheeps remaining: 7");
+        transitioner.OnTransition.AddListener(() => transitioner.GetComponent<LevelLoader>().NextLevel());
+        transitioner.StartTransition(2);
+    }
 }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.30690813, g: 0.6228158, b: 0.85540986, a: 1}
+  m_IndirectSpecularColor: {r: 0.31302613, g: 0.6291564, b: 0.85844326, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2010,22 +2010,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1890181380}
-        m_TargetAssemblyTypeName: SceneTransitioner, Assembly-CSharp
-        m_MethodName: StartTransition
-        m_Mode: 4
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 2
-          m_StringArgument: Day 1
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1890181380}
-        m_TargetAssemblyTypeName: SceneTransitioner, Assembly-CSharp
-        m_MethodName: SetText
-        m_Mode: 5
+      - m_Target: {fileID: 2048764934}
+        m_TargetAssemblyTypeName: MenuController, Assembly-CSharp
+        m_MethodName: StartLevel
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -6830,20 +6818,36 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
+      propertyPath: OnTransition.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
       propertyPath: OnTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
       propertyPath: OnTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1890181379}
     - target: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
+      propertyPath: OnTransition.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
       propertyPath: OnTransition.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ChangeScene
+      value: NextLevel
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
+      propertyPath: OnTransition.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: LevelLoader, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
       propertyPath: OnTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
+      propertyPath: OnTransition.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 2545342786001124433, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
       propertyPath: m_Pivot.x
@@ -7249,17 +7253,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f632c1eba46f5c54f8cfda5fc8ea27dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1890181380 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2545342786001124432, guid: 6189751cee1a21d44b46f0d598c84ba7, type: 3}
-  m_PrefabInstance: {fileID: 1811276578}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18947d05773aa484fa2eaef0717984e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1891980673
