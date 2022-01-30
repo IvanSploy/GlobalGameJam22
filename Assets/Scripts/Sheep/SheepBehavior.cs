@@ -45,6 +45,8 @@ public class SheepBehavior : MonoBehaviour
     private Target target;
 
     [SerializeField] private Animator anim;
+
+    private SoundManager sM;
     private void Awake()
     {        
         state = 0;
@@ -54,6 +56,7 @@ public class SheepBehavior : MonoBehaviour
         progressbar = GetComponentInChildren<Slider>();
         canvas = GetComponentInChildren<Canvas>();
         target = GetComponent<Target>();
+        sM = GetComponent<SoundManager>();
     }
 
     private void Start()
@@ -88,6 +91,8 @@ public class SheepBehavior : MonoBehaviour
             navMeshAgent.enabled = true;
             PlayerCloseMovement();
         }
+
+        
         
     }
 
@@ -103,6 +108,7 @@ public class SheepBehavior : MonoBehaviour
             conNecesidad = false;
             saciandoNecesidad = false;
         }
+        
         UpdateNeeds();
         if(isPlayerClose) return;
         if (Vector3.Distance(nextPosition,transform.position) <= 1f && locked == false)
@@ -251,11 +257,19 @@ public class SheepBehavior : MonoBehaviour
     {
         while(count > 0)
         {
-            progressbar.value = count;
-            count -= Time.deltaTime;
+            if (!picked) {
+                progressbar.value = count;
+                count -= Time.deltaTime;
+            }
+            
             yield return new WaitForEndOfFrame();
+            
         }
-        Die();
+
+        if (!picked) {
+            Die();
+        }
+        
     }
 
     public void Die()
@@ -367,14 +381,16 @@ public class SheepBehavior : MonoBehaviour
         transform.DORotate(Vector3.forward * 180, 0.3f);
         rb.isKinematic = true;
         picked = true;
+        sM.Play(0);
         isPlayerClose = false;
     }
 
     public void Released()
     {
         rb.isKinematic = false;
-
+        sM.Play(1);
         recover = StartCoroutine(Recover());
+
     }
 
     private void ChangeEmoji(int numberOfEmoji)
