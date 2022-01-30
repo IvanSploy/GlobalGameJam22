@@ -8,9 +8,15 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Transitioner.unity
-    guid: e7238d05b353e5b42bedeecbcee8398c
+    path: Assets/Scenes/Menu.unity
+    guid: 1db8452b4fd0fc442bf40cb95e59660f
+  - enabled: 1
+    path: Assets/Scenes/FinalGameplay.unity
+    guid: 6fc4794434d8f734eb53695c135b3b85
   - enabled: 1
     path: Assets/Scenes/GameplayScene.unity
     guid: e5a5b6813bb0dd24eaf8ab3ef3a71aab

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -8,17 +9,22 @@ using Unity.VisualScripting;
 public class NightManager : MonoBehaviour
 {
     [SerializeField] private float nightTime;
-    [SerializeField] private Slider progressbar;
+    [SerializeField] public Slider progressbar;
     [SerializeField] private Image backgroundColor;
 
     private float progressTime;
-
+    private GameManager gM;
     public bool isNight;
+
+    private void Awake() {
+        gM = FindObjectOfType<GameManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        isNight = false;
         progressbar.maxValue = nightTime;
+        isNight = true;
     }
 
     // Update is called once per frame
@@ -40,6 +46,7 @@ public class NightManager : MonoBehaviour
                 isNight = false;
                 progressTime = 0;
                 progressbar.gameObject.SetActive(false);
+                gM.TransitionToDay();
             }
         }
     }
