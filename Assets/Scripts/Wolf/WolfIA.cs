@@ -8,25 +8,39 @@ public class WolfIA : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private SheepBehavior[] sheepBehaviors;
     private bool locked;
+    private bool killed = false;
 
     private bool searchingSheep;
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        navMeshAgent = GetComponentInParent<NavMeshAgent>();
+    }
     void Start()
     {
         sheepBehaviors = FindObjectsOfType<SheepBehavior>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        SearchSheeps();
+        if(!locked) SearchSheeps();
+    }
+
+    public void ReloadSheeps()
+    {
+        sheepBehaviors = FindObjectsOfType<SheepBehavior>();
+        killed = false;
     }
 
     private void SearchSheeps()
     {
-        if (sheepBehaviors == null)
+        if(killed) ReloadSheeps();
+        if (sheepBehaviors.Length == 0)
         {
             //SE ACABA EL JUEGO NO HAY MAS BICHOS
+
+            return;
         }
         float distance = Vector3.Distance(sheepBehaviors[0].transform.position, transform.position);
         int numberSheep = 0;
@@ -60,8 +74,7 @@ public class WolfIA : MonoBehaviour
         sheep.GetComponent<NavMeshAgent>().enabled = false;
         yield return new WaitForSeconds(2);
         Destroy(sheep);
-        sheepBehaviors = FindObjectsOfType<SheepBehavior>();
+        killed = true;
         locked = false;
-        SearchSheeps();
     }
 }

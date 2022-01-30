@@ -17,6 +17,8 @@ TagManager:
   - Bistec
   - Trap
   - Fence
+  - Wolf
+  - SheepDetector
   layers:
   - Default
   - TransparentFX
