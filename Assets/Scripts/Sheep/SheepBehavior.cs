@@ -75,7 +75,7 @@ public class SheepBehavior : MonoBehaviour
             nightLock = true;
             sinNecesidad = false;
             ChangeState(0);
-            StopCoroutine(countdownSheep);
+            if(countdownSheep!=null) StopCoroutine(countdownSheep);
             return;
         }
 
@@ -86,8 +86,6 @@ public class SheepBehavior : MonoBehaviour
         UpdateState(state);
 
         if (picked) return;
-
-        
         
         if (!isPlayerClose)
         {
@@ -106,9 +104,6 @@ public class SheepBehavior : MonoBehaviour
             navMeshAgent.enabled = true;
             PlayerCloseMovement();
         }
-
-        
-        
     }
 
     void SinNecesidad()
