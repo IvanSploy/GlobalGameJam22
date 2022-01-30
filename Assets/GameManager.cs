@@ -5,6 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
+    //Referencia
+    public static GameManager instance;
+
     public int currentDay = 1;
     private SceneTransitioner transitioner;
     
@@ -23,6 +26,9 @@ public class GameManager : MonoBehaviour {
     [SerializeField] Sprite moonLogo;
 
     private void Awake() {
+        if (instance)
+            Destroy(this);
+        instance = this;
         transitioner = FindObjectOfType<SceneTransitioner>();
         minigameManager = FindObjectOfType<MinigameManager>();
 
