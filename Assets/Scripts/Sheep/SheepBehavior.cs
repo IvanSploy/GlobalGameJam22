@@ -204,10 +204,9 @@ public class SheepBehavior : MonoBehaviour
 
         while (!correctDestination)
         {
-            
-            
-            Vector3 origin = new Vector3(transform.position.x + Random.Range(-3, 3f), transform.position.y + 20,
-                transform.position.z + Random.Range(-3, 3f));
+
+            Vector3 origin = new Vector3(transform.position.x + Random.Range(-6, 6f), transform.position.y + 20,
+                transform.position.z + Random.Range(-6, 6f));
 
             RaycastHit hit;
 
