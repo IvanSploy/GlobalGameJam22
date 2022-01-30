@@ -44,7 +44,7 @@ public class Indicator : MonoBehaviour
     /// <param name="color"></param>
     public void SetImageColor(Color color)
     {
-        indicatorImage.color = color;
+        //indicatorImage.color = color;
     }
 
     /// <summary>

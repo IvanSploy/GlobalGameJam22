@@ -70,9 +70,9 @@ public class PlayerController : MonoBehaviour
         dir.z = screenDir.y;
         float actualSpeed = speed * 0.5f + speed * 0.5f * isSprinting;
         anim.speed = actualSpeed / speed;
-        rigidbody.velocity = (dir * actualSpeed) + Vector3.up * rigidbody.velocity.y;
+        rigidbody.velocity = (-dir * actualSpeed) + Vector3.up * rigidbody.velocity.y;
         
-        var rot = Quaternion.LookRotation(dir * actualSpeed);
+        var rot = Quaternion.LookRotation(-dir * actualSpeed);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
         movementValue = Mathf.Abs(dir.magnitude);
     }
@@ -80,10 +80,10 @@ public class PlayerController : MonoBehaviour
     //Móvil
     public void OnMoveJoystick()
     {
-        rigidbody.velocity = (joystick.dir * speed) + Vector3.up * rigidbody.velocity.y;
+        rigidbody.velocity = (-joystick.dir * speed) + Vector3.up * rigidbody.velocity.y;
 
         var rot = Quaternion.Euler(Vector3.zero);
-        if (!joystick.dir.Equals(Vector3.zero)) rot = Quaternion.LookRotation(joystick.dir * speed);
+        if (!joystick.dir.Equals(Vector3.zero)) rot = Quaternion.LookRotation(-joystick.dir * speed);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
 
         anim.speed = Vector3.Magnitude(joystick.dir * speed) / speed;
