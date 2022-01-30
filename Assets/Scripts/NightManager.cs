@@ -13,15 +13,15 @@ public class NightManager : MonoBehaviour
     [SerializeField] private Image backgroundColor;
 
     private float progressTime;
-    private GameManager gM;
     public bool isNight;
 
-    private void Awake() {
-        gM = FindObjectOfType<GameManager>();
+    // Start is called before the first frame update
+    void OnEnable()
+    {
+        StartNight();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void StartNight()
     {
         progressbar.maxValue = nightTime;
         isNight = true;
@@ -46,7 +46,8 @@ public class NightManager : MonoBehaviour
                 isNight = false;
                 progressTime = 0;
                 progressbar.gameObject.SetActive(false);
-                gM.TransitionToDay();
+                if (GameManager.instance.currentDay < 7) GameManager.instance.TransitionToDay();
+                else GameManager.instance.Win();
             }
         }
     }

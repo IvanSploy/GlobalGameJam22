@@ -11,19 +11,18 @@ public class DayManager : MonoBehaviour
     [SerializeField] private float dayTime;
     [SerializeField] public Slider progressbar;
     [SerializeField] private Image backgroundColor;
-    
-    GameManager gM;
 
     private float progressTime;
 
     public bool isDay;
 
-    private void Awake() {
-        gM = FindObjectOfType<GameManager>();
+    // Start is called before the first frame update
+    void OnEnable()
+    {
+        StartDay();
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void StartDay()
     {
         isDay = true;
         progressbar.maxValue = dayTime;
@@ -47,7 +46,7 @@ public class DayManager : MonoBehaviour
                 isDay = false;
                 progressTime = 0;
                 progressbar.gameObject.SetActive(false);
-                gM.TransitionToSleep();
+                GameManager.instance.TransitionToSleep();
             }
         }
     }

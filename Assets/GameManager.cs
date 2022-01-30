@@ -33,18 +33,20 @@ public class GameManager : MonoBehaviour {
         if (instance)
             Destroy(this);
         instance = this;
-        transitioner = FindObjectOfType<SceneTransitioner>();
-        minigameManager = FindObjectOfType<MinigameManager>();
-
-        day = FindObjectOfType<DayManager>();
-        night = FindObjectOfType<NightManager>();
-        
-        night.gameObject.SetActive(false);
     }
 
     private void Start()
     {
         mobileCanvas.SetActive(true);
+        ItemManager.instance.GenerateItems();
+        transitioner = FindObjectOfType<SceneTransitioner>();
+        minigameManager = FindObjectOfType<MinigameManager>();
+
+        day = FindObjectOfType<DayManager>();
+        night = FindObjectOfType<NightManager>();
+
+        night.gameObject.SetActive(false);
+        StartCoroutine(WaitForGameOver());
     }
 
     private void Update()
@@ -59,6 +61,7 @@ public class GameManager : MonoBehaviour {
         {
             minigameImg.gameObject.SetActive(true);
             mobileCanvas.SetActive(false);
+            night.gameObject.SetActive(true);
         });
         transitioner.OnEnd.AddListener(() => minigameManager.InitMinigame(currentDay));
         transitioner.SetImage(moonLogo);
@@ -79,7 +82,8 @@ public class GameManager : MonoBehaviour {
             minigameImg.gameObject.SetActive(false);
             FindObjectOfType<PlayerManager>().SwitchPlayer();
             });
-        transitioner.OnEnd.AddListener(() => night.gameObject.SetActive(true));
+        transitioner.SetBackgroundColor(Color.black);
+        transitioner.SetTextColor(Color.red);
         transitioner.SetTitle("WOLF IS AWAKE!");
         transitioner.SetSubtitle("May your sheeps survive?!");
         transitioner.StartTransition(2);
@@ -97,19 +101,60 @@ public class GameManager : MonoBehaviour {
             mobileCanvas.SetActive(true);
             FindObjectOfType<PlayerManager>().SwitchPlayer();
             RenderSettings.skybox = daySkybox;
+            ItemManager.instance.GenerateItems();
         });
         transitioner.OnEnd.AddListener(() => {
             day.gameObject.SetActive(true);
             day.progressbar.gameObject.SetActive(true);
         });
         transitioner.SetImage(sunLogo);
-        transitioner.SetBackgroundColor(Color.blue);
+        transitioner.SetBackgroundColor(new Color(0.75f, 1f, 1f));
+        transitioner.SetTextColor(Color.black);
+        currentDay++;
+        transitioner.SetSubtitle($"{ovejitasvivas} sheeps alive");
+        transitioner.SetTitle($"Day {currentDay} of 7");
+        transitioner.StartTransition(2);
+        MusicManager.instance.SetSong(1);
+    }
+
+    public void GameOver()
+    {
+        transitioner.ResetEvents();
+        transitioner.OnTransition.AddListener(() =>
+        {
+            LevelLoader.instance.ChangeScene(0);
+        });
+        transitioner.SetImage(moonLogo);
+        transitioner.SetBackgroundColor(Color.black);
         transitioner.SetTextColor(Color.white);
         currentDay++;
-        transitioner.SetSubtitle("Current sheeps: " + currentDay);
-        transitioner.SetTitle($"Day {currentDay}");
+        transitioner.SetSubtitle("All sheeps are dead :(");
+        transitioner.SetTitle($"Game Over");
         transitioner.StartTransition(2);
-        
-        MusicManager.instance.SetSong(1);
+        MusicManager.instance.SetSong(0);
+    }
+
+    public void Win()
+    {
+        transitioner.ResetEvents();
+        transitioner.OnTransition.AddListener(() =>
+        {
+            LevelLoader.instance.ChangeScene(0);
+        });
+        transitioner.SetImage(sunLogo);
+        transitioner.SetBackgroundColor(Color.black);
+        transitioner.SetTextColor(Color.white);
+        currentDay++;
+        transitioner.SetSubtitle("All sheeps are dead :(");
+        transitioner.SetTitle($"Victoria");
+        transitioner.StartTransition(2);
+
+        MusicManager.instance.SetSong(0);
+    }
+
+    IEnumerator WaitForGameOver()
+    {
+        yield return new WaitUntil(() => ovejitasvivas==0);
+        GameOver();
     }
 }

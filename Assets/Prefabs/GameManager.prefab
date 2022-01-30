@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2865437908480814043}
   - component: {fileID: 2865437908480814040}
   - component: {fileID: 2865437908480814042}
+  - component: {fileID: 8258374407443290608}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -62,9 +63,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDay: 1
+  mobileCanvas: {fileID: 0}
   minigameImg: {fileID: 0}
   daySkybox: {fileID: 2100000, guid: e11f5b66aad75483b8cd16ee18a0c917, type: 2}
   nightSkybox: {fileID: 2100000, guid: d1fdb8e44b28da34d9e922cca0bc740e, type: 2}
   light: {fileID: 0}
   sunLogo: {fileID: 21300000, guid: df03da6d18071e3408d67da9a93b3a3f, type: 3}
   moonLogo: {fileID: 21300000, guid: 9f2cef11e5e3bc44b95c1d3d7d6ce2f0, type: 3}
+--- !u!114 &8258374407443290608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2865437908480814041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc9c542c47d93b7419f411fcb936c67a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trap: {fileID: 0}
+  bistec: {fileID: 2167237501569051827, guid: a94a90bbe65ba324e987dc785d2c8b58, type: 3}
+  fence: {fileID: 3099508158760194449, guid: 0fd0f1ef88591734eb7c45626aef1186, type: 3}
+  spawn1: {fileID: 0}
+  spawn2: {fileID: 0}

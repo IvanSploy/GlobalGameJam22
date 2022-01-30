@@ -279,7 +279,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8242668464211440487, guid: 17206b18a7ba606498fd5a964057b54b, type: 3}
       propertyPath: dayTime
-      value: 2
+      value: 120
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17206b18a7ba606498fd5a964057b54b, type: 3}
@@ -301,7 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 105006230445462140, guid: dbd6d3576d48a134aa1149721a3eb32a, type: 3}
       propertyPath: nightTime
-      value: 2
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 8242668463599642134, guid: dbd6d3576d48a134aa1149721a3eb32a, type: 3}
       propertyPath: m_AnchorMax.y

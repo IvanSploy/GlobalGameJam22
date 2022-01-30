@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Menu.unity
     guid: 1db8452b4fd0fc442bf40cb95e59660f
   - enabled: 1
+    path: Assets/Scenes/Game.unity
+    guid: 1382e7ab280f4d44790fa6f36a6a377b
+  - enabled: 1
     path: Assets/Scenes/Transitioner.unity
     guid: 2a66c4beefcfa284191b8acef0119ab7
   - enabled: 1
