@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 365758548522700134}
   - component: {fileID: 4683934090247443850}
   - component: {fileID: 413105309565721560}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Bistec
   m_TagString: Bistec
   m_Icon: {fileID: 0}
@@ -110,5 +110,5 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 10
+  m_Constraints: 0
   m_CollisionDetection: 0

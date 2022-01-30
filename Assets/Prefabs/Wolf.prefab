@@ -320,7 +320,7 @@ Animator:
   m_GameObject: {fileID: 1560405426674352130}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9970ea467da5cfa49becfd000f3abae6, type: 2}
+  m_Controller: {fileID: 9100000, guid: b4e783f367acabf409e70950d79e95de, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -401,7 +401,7 @@ GameObject:
   - component: {fileID: 1830367616444401873}
   - component: {fileID: 1830367616444401886}
   - component: {fileID: 5234210840285287342}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SheepDetector
   m_TagString: SheepDetector
   m_Icon: {fileID: 0}
@@ -461,7 +461,7 @@ GameObject:
   - component: {fileID: 9098082406887082992}
   m_Layer: 0
   m_Name: EatArea
-  m_TagString: Player
+  m_TagString: Wolf
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -474,7 +474,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1830367616604698253}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0.97}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1830367617357879656}
@@ -491,8 +491,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2.2720747, y: 3, z: 3.4176013}
-  m_Center: {x: -0.048658025, y: 0, z: 1.4986817}
+  m_Size: {x: 2.2720747, y: 3, z: 1.5918636}
+  m_Center: {x: -0.048658025, y: 0, z: 0.5858127}
 --- !u!114 &9098082406887082992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -505,6 +505,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3063d420b382435409f09c81a25760aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  state: 0
+  previousState: 0
   timeEating: 3
   timeInTrap: 10
 --- !u!1 &1830367617357879660
@@ -520,7 +522,7 @@ GameObject:
   - component: {fileID: 1830367617357879657}
   - component: {fileID: 4220262577812799593}
   - component: {fileID: 8964893919155850720}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Wolf
   m_TagString: Wolf
   m_Icon: {fileID: 0}
@@ -672,7 +674,7 @@ TrailRenderer:
     shadowBias: 0.5
     generateLightingData: 0
   m_MinVertexDistance: 0.1
-  m_Autodestruct: 1
+  m_Autodestruct: 0
   m_Emitting: 1
 --- !u!195 &8964893919155850720
 NavMeshAgent:
@@ -1522,9 +1524,9 @@ GameObject:
   - component: {fileID: 2669001383343871923}
   - component: {fileID: 1662751400897102734}
   - component: {fileID: 101653162311191843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trap Area
-  m_TagString: Player
+  m_TagString: Wolf
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -63,13 +63,16 @@ public class PlayerController : MonoBehaviour
     }
     public void OnMoveKeyboard()
     {
+        float isSprinting = input.Player.Sprint.ReadValue<float>();
         Vector2 screenDir = input.Player.Movement.ReadValue<Vector2>();
         dir = Vector3.zero;
         dir.x = screenDir.x;
         dir.z = screenDir.y;
-        rigidbody.velocity = (dir * speed) + Vector3.up * rigidbody.velocity.y;
+        float actualSpeed = speed * 0.5f + speed * 0.5f * isSprinting;
+        anim.speed = actualSpeed / speed;
+        rigidbody.velocity = (dir * actualSpeed) + Vector3.up * rigidbody.velocity.y;
         
-        var rot = Quaternion.LookRotation(dir * speed);
+        var rot = Quaternion.LookRotation(dir * actualSpeed);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
         movementValue = Mathf.Abs(dir.magnitude);
     }
@@ -82,6 +85,8 @@ public class PlayerController : MonoBehaviour
         var rot = Quaternion.Euler(Vector3.zero);
         if (!joystick.dir.Equals(Vector3.zero)) rot = Quaternion.LookRotation(joystick.dir * speed);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
+
+        anim.speed = Vector3.Magnitude(joystick.dir * speed) / speed;
         movementValue = Mathf.Abs(joystick.dir.magnitude);
     }
     public void OnStop()
@@ -91,6 +96,7 @@ public class PlayerController : MonoBehaviour
         noVel.z = 0;
         rigidbody.velocity = noVel;
         anim.SetBool("Moving", false);
+        anim.speed = 1f;
     }
 
     private void OnEnable()

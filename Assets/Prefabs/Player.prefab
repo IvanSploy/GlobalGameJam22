@@ -121,9 +121,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sheepToTake: {fileID: 0}
+  objectToTake: {fileID: 0}
+  objectTaken: {fileID: 0}
   pickUpPosition: {fileID: 1830367616973205362}
   anim: {fileID: 1830367615528002654}
   throwForce: {x: 3000, y: 500, z: 0}
+  leaveForce: {x: 200, y: 100, z: 0}
 --- !u!1 &1830367616973205365
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +169,7 @@ GameObject:
   - component: {fileID: 1830367617357879661}
   - component: {fileID: 1830367617357879657}
   - component: {fileID: 1830367617357879670}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -234,7 +237,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 1830367615528002654}
-  speed: 5
+  speed: 7
   isMoving: 0
   dir: {x: 0, y: 0, z: 0}
   movementValue: 0
