@@ -246,11 +246,11 @@ MonoBehaviour:
   backgroundColor: {fileID: 7056800514592391017}
   canvas: {fileID: 0}
   sprite:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 7e0d7ca25a3cb4e4491c19752a199ba0, type: 3}
+  - {fileID: 21300000, guid: 733701dadc1c5674791f9cbfbcd5175b, type: 3}
+  - {fileID: 21300000, guid: 26d95577f9b94a7499891f5b9891d6c2, type: 3}
+  - {fileID: 21300000, guid: b0ed79ce65f0089499d1cc152f24eadd, type: 3}
+  - {fileID: 21300000, guid: f9ad6845b069dae499defefee7f3d9c9, type: 3}
   emoji: {fileID: 1303367630240601735}
   anim: {fileID: 7410028384379739623}
 --- !u!54 &1205337337677701601
