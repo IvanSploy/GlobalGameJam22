@@ -16,10 +16,15 @@ public class MinigameManager : MonoBehaviour {
 
     private bool v;
 
+    private GameManager gM;
+
+    private bool playing;
+
 
     private void Awake() {
         sheepGenerator = FindObjectOfType<SheepGenerator>();
         sheepGenCoroutine = SheepGen();
+        gM = FindObjectOfType<GameManager>();
     }
 
     private void OnEnable() {
@@ -29,32 +34,37 @@ public class MinigameManager : MonoBehaviour {
     private void OnDisable() {
         onFail.RemoveListener(OnFail);
     }
-
-    private void Start() {
-        InitMinigame(7);
-    }
+    
     
 
     public void InitMinigame(int dif) {
         difficulty = dif;
-        
+        sheepGenerator.parentS = new GameObject("parentS");
+        sheepGenerator.parentS.transform.SetParent(gameObject.transform);
+        playing = true;
 
         if (difficulty <= 3) {
             InitFences(1);
             v = false;
+            StartCoroutine(sheepGenCoroutine);
+            return;
         }
         
-        if (difficulty <= 5) {
+        if (difficulty <= 5 && difficulty > 3) {
             InitFences(2);
             v = false;
+            StartCoroutine(sheepGenCoroutine);
+            return;
         }
         
-        if (difficulty <= 6) {
+        if (difficulty >= 6) {
             InitFences(3);
             v = true;
+            StartCoroutine(sheepGenCoroutine);
+            return;
         }
         
-        StartCoroutine(sheepGenCoroutine);
+        
     }
 
     void InitFences(int n) {
@@ -81,32 +91,30 @@ public class MinigameManager : MonoBehaviour {
     }
 
     IEnumerator SheepGen() {
-        var spIncrement = 0f;
-        var frequencyIncrement = 0f;
-        var currentF = frequency;
-        var currentS = 300f;
+        float spIncrement = 300f;
+        float frequencyIncrement = 5f;
         
         
-        while (true) {
-            currentF -= frequencyIncrement;
-            currentS += spIncrement;
-
-            sheepGenerator.GenerateSheep(Mathf.Clamp(currentS, 0, 600));
-            yield return new WaitForSeconds(Mathf.Clamp(currentF, 2f, 100));
-
-            if (v) {
+        while (playing) {
+            
+            sheepGenerator.GenerateSheep(Mathf.Clamp(spIncrement, 0, 600));
+            yield return new WaitForSeconds(Mathf.Clamp(frequencyIncrement, 1f, 100));
+            if (!v) {
                 spIncrement += 5f * (difficulty%3 + 1);
-                frequencyIncrement += 0.1f * (difficulty % 3 + 1);
+                frequencyIncrement -= 0.4f;
+                print($"$Increased {frequencyIncrement}");
             }
             else {
                 spIncrement += 2f * (difficulty%2 + 1);
-                frequencyIncrement += 1.5f + 1;
+                frequencyIncrement -= 0.8f;
             }
             
         }
     }
 
     public void OnFail() {
-        //onFail.Invoke();
+        Destroy(sheepGenerator.parentS);
+        playing = false;
+        gM.TransitionToNight();
     }
 }

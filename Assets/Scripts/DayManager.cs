@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
@@ -8,12 +9,19 @@ using Unity.VisualScripting;
 public class DayManager : MonoBehaviour
 {
     [SerializeField] private float dayTime;
-    [SerializeField] private Slider progressbar;
+    [SerializeField] public Slider progressbar;
     [SerializeField] private Image backgroundColor;
+    
+    GameManager gM;
 
     private float progressTime;
 
     public bool isDay;
+
+    private void Awake() {
+        gM = FindObjectOfType<GameManager>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +47,7 @@ public class DayManager : MonoBehaviour
                 isDay = false;
                 progressTime = 0;
                 progressbar.gameObject.SetActive(false);
+                gM.TransitionToSleep();
             }
         }
     }
