@@ -232,17 +232,19 @@ public class SheepBehavior : MonoBehaviour
 
     void UpdateRandomTime()
     {
-        ganasDeCagar = 0;
-        sed = 0;
-        chill = 0;
-        comida = 0;
-        limpieza = 0;
+        ganasDeCagar = Random.Range(-40, 0);
+        sed = Random.Range(-40, 0);
+        chill = Random.Range(-40, 0);
+        comida = Random.Range(-40, 0);
+        limpieza = Random.Range(-40, 0);
 
-        tiempoGanasDeCagar = Random.Range(0.2f, 0.8f);
-        tiempoSed = Random.Range(0.2f, 0.8f);
-        tiempoChill = Random.Range(0.2f, 0.8f);
-        tiempoComida = Random.Range(0.2f, 0.8f);
-        tiempoLimpieza = Random.Range(0.2f, 0.8f);
+        float offset = GameManager.instance.currentDay / 2;
+
+        tiempoGanasDeCagar = Random.Range(0.2f, 0.8f) + offset;
+        tiempoSed = Random.Range(0.2f, 0.8f) + offset;
+        tiempoChill = Random.Range(0.2f, 0.8f) + offset;
+        tiempoComida = Random.Range(0.2f, 0.8f) + offset;
+        tiempoLimpieza = Random.Range(0.2f, 0.8f) + offset;
     }
 
     IEnumerator countdown()
