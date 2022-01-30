@@ -39,7 +39,7 @@ public class SheepBehavior : MonoBehaviour
     [SerializeField] private Slider progressbar;
     [SerializeField] private Image backgroundColor;
     [SerializeField] private Canvas canvas;
-    [SerializeField] private SpriteS [] sprite;
+    [SerializeField] private Sprite [] sprite;
     [SerializeField] private Image emoji;
     private Target target;
 
