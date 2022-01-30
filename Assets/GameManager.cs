@@ -59,6 +59,7 @@ public class GameManager : MonoBehaviour {
         transitioner.SetTitle("TIME TO SLEEP!");
         transitioner.SetSubtitle("Try not to wake up!");
         transitioner.StartTransition(2);
+        MusicManager.instance.SetSong(0);
     }
     
     public void TransitionToNight()
