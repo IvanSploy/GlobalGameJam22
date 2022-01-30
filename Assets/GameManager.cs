@@ -95,8 +95,8 @@ public class GameManager : MonoBehaviour {
             day.progressbar.gameObject.SetActive(true);
         });
         transitioner.SetImage(sunLogo);
-        transitioner.SetBackgroundColor(Color.black);
-        transitioner.SetTextColor(Color.white);
+        transitioner.SetBackgroundColor(new Color(0.2f, 1f, 1f));
+        transitioner.SetTextColor(Color.black);
         currentDay++;
         transitioner.SetSubtitle("Current sheeps: " + currentDay);
         transitioner.SetTitle($"Day {currentDay}");
@@ -105,6 +105,23 @@ public class GameManager : MonoBehaviour {
     }
 
     public void GameOver()
+    {
+        transitioner.ResetEvents();
+        transitioner.OnTransition.AddListener(() =>
+        {
+            LevelLoader.instance.ChangeScene(0);
+        });
+        transitioner.SetImage(moonLogo);
+        transitioner.SetBackgroundColor(Color.black);
+        transitioner.SetTextColor(Color.white);
+        currentDay++;
+        transitioner.SetSubtitle("All sheeps are dead :(");
+        transitioner.SetTitle($"Game Over");
+        transitioner.StartTransition(2);
+        MusicManager.instance.SetSong(1);
+    }
+
+    public void Win()
     {
         transitioner.ResetEvents();
         transitioner.OnTransition.AddListener(() =>
