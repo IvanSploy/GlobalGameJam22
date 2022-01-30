@@ -11,11 +11,16 @@ EditorUserSettings:
     RecentlyUsedScenePath-1:
       value: 22424703114646680e0b0227036c6b0217190b233821293e283b5d62acf53a31f6fe
       flags: 0
+<<<<<<< HEAD
     RecentlyUsedScenePath-2:
       value: 22424703114646680e0b0227036c721106590d24253c3f
       flags: 0
     RecentlyUsedScenePath-3:
       value: 22424703114646680e0b0227036c72151802563f22213229
+=======
+    RecentlyUsedScenePath-1:
+      value: 22424703114646680e0b0227036c6b0217190b233821293e283b5d21e7f03531ecf333eda92f31352d1b
+>>>>>>> terrain
       flags: 0
     RecentlyUsedScenePath-4:
       value: 22424703114646680e0b0227036c6b0217190b233821293e283b5326ece92021
