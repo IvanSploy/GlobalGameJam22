@@ -30,18 +30,19 @@ public class GameManager : MonoBehaviour {
         if (instance)
             Destroy(this);
         instance = this;
-        transitioner = FindObjectOfType<SceneTransitioner>();
-        minigameManager = FindObjectOfType<MinigameManager>();
-
-        day = FindObjectOfType<DayManager>();
-        night = FindObjectOfType<NightManager>();
-        
-        night.gameObject.SetActive(false);
     }
 
     private void Start()
     {
         mobileCanvas.SetActive(true);
+        ItemManager.instance.GenerateItems();
+        transitioner = FindObjectOfType<SceneTransitioner>();
+        minigameManager = FindObjectOfType<MinigameManager>();
+
+        day = FindObjectOfType<DayManager>();
+        night = FindObjectOfType<NightManager>();
+
+        night.gameObject.SetActive(false);
     }
 
     public void TransitionToSleep() 
@@ -87,17 +88,35 @@ public class GameManager : MonoBehaviour {
             mobileCanvas.SetActive(true);
             FindObjectOfType<PlayerManager>().SwitchPlayer();
             RenderSettings.skybox = daySkybox;
+            ItemManager.instance.GenerateItems();
         });
         transitioner.OnEnd.AddListener(() => {
             day.gameObject.SetActive(true);
             day.progressbar.gameObject.SetActive(true);
         });
         transitioner.SetImage(sunLogo);
-        transitioner.SetBackgroundColor(Color.blue);
+        transitioner.SetBackgroundColor(Color.black);
         transitioner.SetTextColor(Color.white);
         currentDay++;
         transitioner.SetSubtitle("Current sheeps: " + currentDay);
         transitioner.SetTitle($"Day {currentDay}");
+        transitioner.StartTransition(2);
+        MusicManager.instance.SetSong(1);
+    }
+
+    public void GameOver()
+    {
+        transitioner.ResetEvents();
+        transitioner.OnTransition.AddListener(() =>
+        {
+            LevelLoader.instance.ChangeScene(0);
+        });
+        transitioner.SetImage(sunLogo);
+        transitioner.SetBackgroundColor(Color.blue);
+        transitioner.SetTextColor(Color.white);
+        currentDay++;
+        transitioner.SetSubtitle("All sheeps are dead :(");
+        transitioner.SetTitle($"Game Over");
         transitioner.StartTransition(2);
         MusicManager.instance.SetSong(1);
     }

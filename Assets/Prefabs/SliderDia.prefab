@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb27526462ed254e89e01c60a0f28e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayTime: 10
+  dayTime: 120
   progressbar: {fileID: 8242668464211440480}
   backgroundColor: {fileID: 8242668463599642135}
   isDay: 0

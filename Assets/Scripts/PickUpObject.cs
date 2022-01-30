@@ -66,7 +66,7 @@ public class PickUpObject : MonoBehaviour
 
         if (other.gameObject.CompareTag("Trap") || other.gameObject.CompareTag("Bistec") || other.gameObject.CompareTag("Fence"))
         {
-            if(objectToTake==other.gameObject) objectToTake = null;
+            if(objectToTake.Equals(other.gameObject)) objectToTake = null;
         }
     }
 
@@ -131,6 +131,7 @@ public class PickUpObject : MonoBehaviour
         objectTaken.GetComponent<Rigidbody>().isKinematic = false;
         objectTaken.GetComponent<Rigidbody>().AddForce(transform.forward * leaveForce.x + transform.up * leaveForce.y);
         isPicking = false;
+        if (objectToTake.Equals(objectTaken)) objectToTake = null;
         objectTaken = null;
         anim.SetBool("Picking", false);
     }

@@ -476,7 +476,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c972702c926aa844a07dde17231b8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nightTime: 20
+  nightTime: 90
   progressbar: {fileID: 8242668464211440480}
   backgroundColor: {fileID: 8242668463599642135}
   isNight: 0
