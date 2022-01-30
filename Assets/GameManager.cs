@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private Light light;
 
     private DayManager day;
-    private NightManager night;
+    public NightManager night;
     
     [SerializeField] Sprite sunLogo;
     [SerializeField] Sprite moonLogo;
@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviour {
         transitioner.SetSubtitle("May your sheeps survive?!");
         transitioner.StartTransition(2);
         RenderSettings.skybox = nightSkybox;
+        
+        MusicManager.instance.SetSong(2);
     }
     
     public void TransitionToDay()
@@ -107,5 +109,7 @@ public class GameManager : MonoBehaviour {
         transitioner.SetSubtitle("Current sheeps: " + currentDay);
         transitioner.SetTitle($"Day {currentDay}");
         transitioner.StartTransition(2);
+        
+        MusicManager.instance.SetSong(1);
     }
 }

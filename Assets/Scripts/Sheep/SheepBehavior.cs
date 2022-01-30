@@ -47,6 +47,7 @@ public class SheepBehavior : MonoBehaviour
     [SerializeField] private Animator anim;
 
     private SoundManager sM;
+    private bool nightLock;
     private void Awake()
     {        
         state = 0;
@@ -70,9 +71,23 @@ public class SheepBehavior : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.instance.night.gameObject.activeSelf && !nightLock) {
+            nightLock = true;
+            sinNecesidad = false;
+            ChangeState(0);
+            StopCoroutine(countdownSheep);
+            return;
+        }
+
+        if (nightLock) {
+            nightLock = false;
+        }
+        
         UpdateState(state);
 
         if (picked) return;
+
+        
         
         if (!isPlayerClose)
         {
