@@ -30,6 +30,10 @@ public class PickUpObject : MonoBehaviour
     private void Awake()
     {
         input = new InputController();
+    }
+
+    private void Start()
+    {
         interact = FindObjectOfType<VirtualButton>();
         interact.OnClick.AddListener(Interact);
         input.Player.Interact.started += (ctx) => Interact();

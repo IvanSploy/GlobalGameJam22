@@ -5,9 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
+    //Referencia
+    public static GameManager instance;
+
     public int currentDay = 1;
     private SceneTransitioner transitioner;
-    
+
+    [SerializeField] private GameObject mobileCanvas;
     [SerializeField] private RawImage minigameImg;
     private MinigameManager minigameManager;
 
@@ -23,6 +27,9 @@ public class GameManager : MonoBehaviour {
     [SerializeField] Sprite moonLogo;
 
     private void Awake() {
+        if (instance)
+            Destroy(this);
+        instance = this;
         transitioner = FindObjectOfType<SceneTransitioner>();
         minigameManager = FindObjectOfType<MinigameManager>();
 
@@ -32,10 +39,19 @@ public class GameManager : MonoBehaviour {
         night.gameObject.SetActive(false);
     }
 
+    private void Start()
+    {
+        mobileCanvas.SetActive(true);
+    }
+
     public void TransitionToSleep() 
     {
         transitioner.ResetEvents();
-        transitioner.OnTransition.AddListener(() => minigameImg.gameObject.SetActive(true) );
+        transitioner.OnTransition.AddListener(() =>
+        {
+            minigameImg.gameObject.SetActive(true);
+            mobileCanvas.SetActive(false);
+        });
         transitioner.OnEnd.AddListener(() => minigameManager.InitMinigame(currentDay));
         transitioner.SetImage(moonLogo);
         transitioner.SetBackgroundColor(Color.black);
@@ -55,7 +71,8 @@ public class GameManager : MonoBehaviour {
             FindObjectOfType<PlayerManager>().SwitchPlayer();
             });
         transitioner.OnEnd.AddListener(() => night.gameObject.SetActive(true));
-        transitioner.SetSubtitle("Try not to kill your sheeps!");
+        transitioner.SetTitle("WOLF IS AWAKE!");
+        transitioner.SetSubtitle("May your sheeps survive?!");
         transitioner.StartTransition(2);
         RenderSettings.skybox = nightSkybox;
     }
@@ -66,18 +83,19 @@ public class GameManager : MonoBehaviour {
         transitioner.OnTransition.AddListener(() => 
         {
             light.color = Color.white;
+            mobileCanvas.SetActive(true);
             FindObjectOfType<PlayerManager>().SwitchPlayer();
+            RenderSettings.skybox = daySkybox;
         });
         transitioner.OnEnd.AddListener(() => {
             day.gameObject.SetActive(true);
             day.progressbar.gameObject.SetActive(true);
-            RenderSettings.skybox = daySkybox;
         });
         transitioner.SetImage(sunLogo);
-        transitioner.SetBackgroundColor(Color.cyan);
+        transitioner.SetBackgroundColor(Color.blue);
         transitioner.SetTextColor(Color.white);
-        transitioner.SetSubtitle("Current sheeps: ??!");
         currentDay++;
+        transitioner.SetSubtitle("Current sheeps: " + currentDay);
         transitioner.SetTitle($"Day {currentDay}");
         transitioner.StartTransition(2);
     }
