@@ -74,7 +74,7 @@ public class OffScreenIndicator : MonoBehaviour
                     Color notColor = Color.white;
                     notColor.a = 0f;
                     indicator.gameObject.GetComponent<Image>().color = notColor;
-                    indicator.SetDistanceText(distanceFromCamera);
+                    indicator.SetDistanceText(-1);
                 }
             }
         }
