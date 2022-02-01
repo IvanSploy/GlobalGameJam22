@@ -27,6 +27,7 @@ public class WolfIA : MonoBehaviour
         ChangeState(0);
         sM = FindObjectOfType<SoundManager>();
     }
+
     void Start()
     {
         sheepBehaviors = FindObjectsOfType<SheepBehavior>();

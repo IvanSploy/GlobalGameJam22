@@ -18,7 +18,7 @@ public class MinigameManager : MonoBehaviour {
 
     private GameManager gM;
 
-    private bool playing;
+    public bool playing;
 
 
     private void Awake() {
@@ -112,9 +112,14 @@ public class MinigameManager : MonoBehaviour {
         }
     }
 
-    public void OnFail() {
+    public void DoReset()
+    {
         Destroy(sheepGenerator.parentS);
         playing = false;
+    }
+
+    public void OnFail() {
+        DoReset();
         gM.TransitionToNight();
     }
 }

@@ -51,7 +51,7 @@ public class MenuController : MonoBehaviour {
         transitioner.SetBackgroundColor(new Color(0.75f, 1f, 1f));
         transitioner.SetTextColor(Color.black);
         transitioner.SetSubtitle("15 sheeps alive");
-        transitioner.OnTransition.AddListener(() => transitioner.GetComponent<LevelLoader>().NextLevel());
+        transitioner.OnTransition.AddListener(() => LevelLoader.instance.LoadGame());
         transitioner.StartTransition(2);
     }
 }

@@ -46,6 +46,8 @@ public class NightManager : MonoBehaviour
                 isNight = false;
                 progressTime = 0;
                 progressbar.gameObject.SetActive(false);
+                var minigame = FindObjectOfType<MinigameManager>();
+                if (minigame.playing) minigame.DoReset();
                 if (GameManager.instance.currentDay < 7) GameManager.instance.TransitionToDay();
                 else GameManager.instance.Win();
             }

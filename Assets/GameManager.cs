@@ -115,6 +115,8 @@ public class GameManager : MonoBehaviour {
         transitioner.SetTitle($"Day {currentDay} of 7");
         transitioner.StartTransition(2);
         MusicManager.instance.SetSong(1);
+        WolfIA lobo = FindObjectOfType<WolfIA>();
+        if (lobo) lobo.ChangeState(3);
     }
 
     public void GameOver()
