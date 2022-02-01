@@ -9,15 +9,13 @@ public class PlayerController : MonoBehaviour
     //Referencias
     private InputController input;
     private Rigidbody rigidbody;
-    private VirtualJoystick joystick;
     [SerializeField] private Animator anim;
 
     //Atributos
     public float speed = 5;
-    public bool isMoving = false;
+    public bool isMovingKeyboard = false;
+    public bool isMovingJoystick = false;
     public Vector3 dir;
-
-    public float movementValue;
 
     private void Awake()
     {
@@ -27,68 +25,76 @@ public class PlayerController : MonoBehaviour
 
     private void Start()
     {
-        //Móvil
-        joystick = FindObjectOfType<VirtualJoystick>();
-        joystick.OnUp.AddListener(OnStop);
-
         //Keyboard
-        input.Player.Movement.performed += (ctx) => OnStartMove();
-        input.Player.Movement.canceled += (ctx) => OnStopMove();
+        input.Player.MoveKeyboard.performed += (ctx) => OnStartKeyboard();
+        input.Player.MoveKeyboard.canceled += (ctx) => OnStopKeyboard();
+        input.Player.MoveJoystick.performed += (ctx) => OnStartJoystick();
+        input.Player.MoveJoystick.canceled += (ctx) => OnStopJoystick();
     }
 
     private void Update()
     {
-        if (joystick.isMoving)
-        {
-            OnMoveJoystick();
-            anim.SetBool("Moving", true);
-        }
-
-        if (isMoving)
+        if (isMovingKeyboard)
         {
             OnMoveKeyboard();
+            anim.SetBool("Moving", true);
+        }
+        if (isMovingJoystick)
+        {
+            OnMoveJoystick();
             anim.SetBool("Moving", true);
         }
     }
 
     //Teclado
-    public void OnStartMove()
+    public void OnStartKeyboard()
     {
-        isMoving = true;
+        isMovingKeyboard = true;
     }
-    public void OnStopMove()
+    public void OnStopKeyboard()
     {
         OnStop();
-        isMoving = false;
+        isMovingKeyboard = false;
     }
     public void OnMoveKeyboard()
     {
         float isSprinting = input.Player.Sprint.ReadValue<float>();
-        Vector2 screenDir = input.Player.Movement.ReadValue<Vector2>();
+        Vector2 screenDir = input.Player.MoveKeyboard.ReadValue<Vector2>();
         dir = Vector3.zero;
         dir.x = screenDir.x;
         dir.z = screenDir.y;
         float actualSpeed = speed * 0.5f + speed * 0.5f * isSprinting;
         anim.speed = actualSpeed / speed;
         rigidbody.velocity = (-dir * actualSpeed) + Vector3.up * rigidbody.velocity.y;
-        
+
         var rot = Quaternion.LookRotation(-dir * actualSpeed);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
-        movementValue = Mathf.Abs(dir.magnitude);
     }
-    
-    //Móvil
+
+    //Joystick
+    public void OnStartJoystick()
+    {
+        isMovingJoystick = true;
+    }
+    public void OnStopJoystick()
+    {
+        OnStop();
+        isMovingJoystick = false;
+    }
     public void OnMoveJoystick()
     {
-        rigidbody.velocity = (-joystick.dir * speed) + Vector3.up * rigidbody.velocity.y;
+        Vector2 screenDir = input.Player.MoveJoystick.ReadValue<Vector2>();
+        float actualSpeed = screenDir.magnitude * speed;
+        dir = Vector3.zero;
+        dir.x = screenDir.x;
+        dir.z = screenDir.y;
+        anim.speed = actualSpeed / speed;
+        rigidbody.velocity = (-dir * actualSpeed) + Vector3.up * rigidbody.velocity.y;
 
-        var rot = Quaternion.Euler(Vector3.zero);
-        if (!joystick.dir.Equals(Vector3.zero)) rot = Quaternion.LookRotation(-joystick.dir * speed);
+        var rot = Quaternion.LookRotation(-dir * actualSpeed);
         transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime * 10);
-
-        anim.speed = Vector3.Magnitude(joystick.dir * speed) / speed;
-        movementValue = Mathf.Abs(joystick.dir.magnitude);
     }
+
     public void OnStop()
     {
         Vector3 noVel = rigidbody.velocity;

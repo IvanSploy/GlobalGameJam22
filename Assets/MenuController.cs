@@ -9,6 +9,7 @@ public class MenuController : MonoBehaviour {
     [SerializeField] private RectTransform back;
     
     [SerializeField] private GameObject cam;
+    public Sprite imageTransition;
     private Vector3 initialRot;
     private Vector3 rot;
     [SerializeField] private MeshRenderer mesh;
@@ -46,6 +47,7 @@ public class MenuController : MonoBehaviour {
         SceneTransitioner transitioner = FindObjectOfType<SceneTransitioner>();
         transitioner.SetTitle("Day 1 of 7");
         MusicManager.instance.SetSong(1);
+        transitioner.SetImage(imageTransition);
         transitioner.SetBackgroundColor(new Color(0.75f, 1f, 1f));
         transitioner.SetTextColor(Color.black);
         transitioner.SetSubtitle("15 sheeps alive");

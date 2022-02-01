@@ -180,8 +180,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   centerArea: {fileID: 7994729573854476862}
   handle: {fileID: 7994729574394115877}
-  stickControlPath: 
+  stickControlPath: <Gamepad>/leftStick
   movementRange: 100
+  isMoving: 0
+  dir: {x: 0, y: 0, z: 0}
+  onDown:
+    m_PersistentCalls:
+      m_Calls: []
+  onDrag:
+    m_PersistentCalls:
+      m_Calls: []
+  OnUp:
+    m_PersistentCalls:
+      m_Calls: []
   hideOnPointerUp: 0
   centralizeOnPointerUp: 1
 --- !u!1 &7994729574394115878

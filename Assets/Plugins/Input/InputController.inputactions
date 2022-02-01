@@ -6,12 +6,20 @@
             "id": "0c977be1-ae2a-4207-9e93-cd28cd457251",
             "actions": [
                 {
-                    "name": "Movement",
+                    "name": "MoveKeyboard",
                     "type": "PassThrough",
                     "id": "96945504-67e9-4e1e-9778-a7bdbf75ea9d",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "Press(behavior=2)"
+                },
+                {
+                    "name": "MoveJoystick",
+                    "type": "PassThrough",
+                    "id": "8ed18e65-b97b-4ea0-8d99-64d358028c30",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "Press(pressPoint=0.125,behavior=2)"
                 },
                 {
                     "name": "Interact",
@@ -46,7 +54,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -57,7 +65,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -68,7 +76,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -79,7 +87,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -90,7 +98,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -101,7 +109,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -112,7 +120,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -123,7 +131,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -134,7 +142,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -145,20 +153,9 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": true
-                },
-                {
-                    "name": "",
-                    "id": "3fdebac6-1e89-4d6f-baa7-c743f23aaa99",
-                    "path": "<Gamepad>/leftStick",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Movement",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
@@ -167,7 +164,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Movement",
+                    "action": "MoveKeyboard",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -245,6 +242,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "69c1a41b-87c8-4845-a077-26ed48760c10",
+                    "path": "<Gamepad>/leftStick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveJoystick",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

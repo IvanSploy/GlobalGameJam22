@@ -10,6 +10,7 @@ public class Indicator : MonoBehaviour
     [SerializeField] private IndicatorType indicatorType;
     private Image indicatorImage;
     private TMP_Text distanceText;
+    public bool shown = true;
 
     /// <summary>
     /// Gets if the game object is active in hierarchy.
@@ -33,10 +34,10 @@ public class Indicator : MonoBehaviour
         }
     }
 
-    void Awake()
+    void OnEnable()
     {
-        indicatorImage = transform.GetComponent<Image>();
-        distanceText = transform.GetComponentInChildren<TMP_Text>();
+        indicatorImage = GetComponent<Image>();
+        distanceText = GetComponentInChildren<TMP_Text>();
     }
 
     /// <summary>

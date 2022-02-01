@@ -28,12 +28,20 @@ public partial class @InputController : IInputActionCollection2, IDisposable
             ""id"": ""0c977be1-ae2a-4207-9e93-cd28cd457251"",
             ""actions"": [
                 {
-                    ""name"": ""Movement"",
+                    ""name"": ""MoveKeyboard"",
                     ""type"": ""PassThrough"",
                     ""id"": ""96945504-67e9-4e1e-9778-a7bdbf75ea9d"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)""
+                },
+                {
+                    ""name"": ""MoveJoystick"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""8ed18e65-b97b-4ea0-8d99-64d358028c30"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(pressPoint=0.125,behavior=2)""
                 },
                 {
                     ""name"": ""Interact"",
@@ -68,7 +76,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -79,7 +87,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -90,7 +98,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -101,7 +109,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -112,7 +120,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -123,7 +131,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -134,7 +142,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -145,7 +153,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -156,7 +164,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -167,20 +175,9 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3fdebac6-1e89-4d6f-baa7-c743f23aaa99"",
-                    ""path"": ""<Gamepad>/leftStick"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Movement"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -189,7 +186,7 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Movement"",
+                    ""action"": ""MoveKeyboard"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -269,6 +266,17 @@ public partial class @InputController : IInputActionCollection2, IDisposable
                     ""action"": ""Sprint"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""69c1a41b-87c8-4845-a077-26ed48760c10"",
+                    ""path"": ""<Gamepad>/leftStick"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""MoveJoystick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -277,7 +285,8 @@ public partial class @InputController : IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
-        m_Player_Movement = m_Player.FindAction("Movement", throwIfNotFound: true);
+        m_Player_MoveKeyboard = m_Player.FindAction("MoveKeyboard", throwIfNotFound: true);
+        m_Player_MoveJoystick = m_Player.FindAction("MoveJoystick", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Minigame = m_Player.FindAction("Minigame", throwIfNotFound: true);
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
@@ -340,7 +349,8 @@ public partial class @InputController : IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
-    private readonly InputAction m_Player_Movement;
+    private readonly InputAction m_Player_MoveKeyboard;
+    private readonly InputAction m_Player_MoveJoystick;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Minigame;
     private readonly InputAction m_Player_Sprint;
@@ -348,7 +358,8 @@ public partial class @InputController : IInputActionCollection2, IDisposable
     {
         private @InputController m_Wrapper;
         public PlayerActions(@InputController wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Movement => m_Wrapper.m_Player_Movement;
+        public InputAction @MoveKeyboard => m_Wrapper.m_Player_MoveKeyboard;
+        public InputAction @MoveJoystick => m_Wrapper.m_Player_MoveJoystick;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Minigame => m_Wrapper.m_Player_Minigame;
         public InputAction @Sprint => m_Wrapper.m_Player_Sprint;
@@ -361,9 +372,12 @@ public partial class @InputController : IInputActionCollection2, IDisposable
         {
             if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
             {
-                @Movement.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @Movement.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
-                @Movement.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMovement;
+                @MoveKeyboard.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveKeyboard;
+                @MoveKeyboard.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveKeyboard;
+                @MoveKeyboard.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveKeyboard;
+                @MoveJoystick.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveJoystick;
+                @MoveJoystick.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveJoystick;
+                @MoveJoystick.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnMoveJoystick;
                 @Interact.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
                 @Interact.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnInteract;
@@ -377,9 +391,12 @@ public partial class @InputController : IInputActionCollection2, IDisposable
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
             {
-                @Movement.started += instance.OnMovement;
-                @Movement.performed += instance.OnMovement;
-                @Movement.canceled += instance.OnMovement;
+                @MoveKeyboard.started += instance.OnMoveKeyboard;
+                @MoveKeyboard.performed += instance.OnMoveKeyboard;
+                @MoveKeyboard.canceled += instance.OnMoveKeyboard;
+                @MoveJoystick.started += instance.OnMoveJoystick;
+                @MoveJoystick.performed += instance.OnMoveJoystick;
+                @MoveJoystick.canceled += instance.OnMoveJoystick;
                 @Interact.started += instance.OnInteract;
                 @Interact.performed += instance.OnInteract;
                 @Interact.canceled += instance.OnInteract;
@@ -395,7 +412,8 @@ public partial class @InputController : IInputActionCollection2, IDisposable
     public PlayerActions @Player => new PlayerActions(this);
     public interface IPlayerActions
     {
-        void OnMovement(InputAction.CallbackContext context);
+        void OnMoveKeyboard(InputAction.CallbackContext context);
+        void OnMoveJoystick(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnMinigame(InputAction.CallbackContext context);
         void OnSprint(InputAction.CallbackContext context);

@@ -24,8 +24,6 @@ public class PickUpObject : MonoBehaviour
 
     [SerializeField] private Vector3 throwForce;
     [SerializeField] private Vector3 leaveForce;
-    private PlayerController playerController;
-    private VirtualButton interact;
 
     private void Awake()
     {
@@ -34,10 +32,7 @@ public class PickUpObject : MonoBehaviour
 
     private void Start()
     {
-        interact = FindObjectOfType<VirtualButton>();
-        interact.OnClick.AddListener(Interact);
         input.Player.Interact.started += (ctx) => Interact();
-        playerController = FindObjectOfType<PlayerController>();
         isSheep = false;
     }
 

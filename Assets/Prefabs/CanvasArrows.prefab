@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5774282240749774929}
   - component: {fileID: 5774282240749774928}
   - component: {fileID: 5774282240749774959}
-  - component: {fileID: 5774282240749774958}
+  - component: {fileID: 9178842051025574389}
   m_Layer: 5
   m_Name: Off screen indicator panel
   m_TagString: Untagged
@@ -106,7 +106,7 @@ MonoBehaviour:
   pooledObject: {fileID: 114082041123525444, guid: 09cefc679ac23c54aa919111d8f3fc40, type: 3}
   pooledAmount: 1
   willGrow: 1
---- !u!114 &5774282240749774958
+--- !u!114 &9178842051025574389
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
